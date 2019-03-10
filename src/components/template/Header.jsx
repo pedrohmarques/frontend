@@ -5,7 +5,7 @@ export default props =>
 (
     <header className="header d-none d-sm-flex flex-column">
         <h1 className="mt3">
-            {props.title}
+        <i className={`fa fa-${props.icon}`}></i> {props.title}
         </h1>
     </header>
 )

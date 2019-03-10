@@ -10,13 +10,13 @@ export default props =>
                 <i className="fa fa-home"></i> Início
             </Link>
             <Link to="/list">
-                <i className="fa fa-flag"></i> Listas
+                <i className="fa fa-list-alt"></i> Listas
             </Link>
             <Link to="/categories">
-                <i className="fa fa-flag"></i> Categorias
+                <i className="fa fa-folder"></i> Categorias
             </Link>
             <Link to="/products">
-                <i className="fa fa-flag"></i> Produtos
+                <i className="fa fa-shopping-cart"></i> Produtos
             </Link>
             <Link to="/exit">
                 <i></i> Sair

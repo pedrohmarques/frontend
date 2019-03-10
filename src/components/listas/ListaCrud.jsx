@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Main from '../template/Main'
 
 const headerProps = {
+    icon: 'list-alt',
     title: 'Lista de Compras'
 }
 
