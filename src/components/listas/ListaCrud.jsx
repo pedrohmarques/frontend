@@ -3,6 +3,7 @@ import Main from '../template/Main'
 import axios from 'axios'
 
 import NewList from './NewList'
+import './ListaCrud.css'
 
 const headerProps = {
     icon: 'list-alt',
@@ -23,11 +24,31 @@ export default class ListaCrud extends Component {
         })
     }
 
-    render(){
+    renderList(){
         console.log(this.state.list)
+        return this.state.list.map(grupo =>{
+            return grupo.listasDeCompras.map(listas => {
+                return grupo.usuarios.map(users =>{
+                    return(
+                        <div className="container">
+                            <div className="container-bola"> </div>
+                            <ul className="list-group" key={grupo.id}>
+                                <li id="nomeLista" className="list-group-item">{listas.nome}</li>
+                                <li className="integrantes">{users.usuario.nome}</li>
+                            </ul>
+                        </div>
+                    )
+                })
+            })
+        })
+    }
+
+
+    render(){
         return(
             <Main {...headerProps}>
                 <NewList></NewList>
+                {this.renderList()}
             </Main>
         )
     }

@@ -1,0 +1,13 @@
+.row{
+    margin: 13vw 20vw 13vw 40vw;
+    padding: 10px 10px 10px 10px;
+    background-color: #ffffff;
+    border-style: solid;
+    border-color: black;
+    border-radius: 10px 10px 10px 10px;
+    box-shadow: var(--shadow);
+}
+
+.form{
+    margin: auto;
+}
