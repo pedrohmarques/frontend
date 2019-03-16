@@ -8,7 +8,7 @@ import Nav from '../template/Nav'
 export default props =>
     <React.Fragment>
         <Header {...props}></Header>
-        <Logo></Logo>
+        <Logo nome = {props.nome}></Logo>
         <Nav></Nav>
         <main className="content container-fluid">
             <div className="p-3 mt-3">

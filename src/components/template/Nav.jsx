@@ -6,9 +6,6 @@ export default props =>
 (
     <aside className="menu-area">
         <nav className="menu">
-            <Link to="/home">
-                <i className="fa fa-home"></i> Início
-            </Link>
             <Link to="/list">
                 <i className="fa fa-list-alt"></i> Listas
             </Link>
@@ -18,7 +15,7 @@ export default props =>
             <Link to="/products">
                 <i className="fa fa-shopping-cart"></i> Produtos
             </Link>
-            <Link to="/exit">
+            <Link to="/">
                 <i></i> Sair
             </Link>
         </nav>

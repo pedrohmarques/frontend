@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 
 import './Login.css'
+import LoginForm from './loginForm'
 
 const baseUrl = 'http://localhost:8080/users/login'
 const initialState = {
@@ -11,7 +12,15 @@ const initialState = {
 
 export default class Login extends Component
 {
-    state = {...initialState}
+    
+
+    constructor(props){
+        super(props)
+        this.state = {...initialState}
+        this.userLogin = this.userLogin.bind(this)
+        this.updateField = this.updateField.bind(this)
+        this.redirectCadastro = this.redirectCadastro.bind(this)
+    }
 
     userLogin(){
         const user = this.state.user
@@ -34,35 +43,10 @@ export default class Login extends Component
     
     render(){
         return(
-            <div className="form">
-                <div className="row">
-                    <div className="col-12 col-md-12 d-flex">
-                        <div className="form-group">
-                            <label>E-mail</label>
-                            <input type="text" className="form-control"
-                                name="email"
-                                value={this.state.user.email}
-                                onChange={e=>this.updateField(e)}
-                                placeholder="Digite o email..." />
-                        </div>
-                    </div>
-
-                    <div className="col-12 col-md-12 d-flex">
-                        <div className="form-group">
-                            <label>Senha</label>
-                            <input type="password" className="form-control"
-                                name="senha"
-                                value={this.state.user.senha}
-                                onChange={e=>this.updateField(e)}
-                                placeholder="Digite a senha..." />
-                        </div>
-                    </div>
-                    <div className="col-12 d-flex justify-content-end">
-                        <button className="btn btn-primary" onClick={e=>this.userLogin(e)}>Salvar</button>
-                        <button className="btn btn-secondary ml-2" onClick={e=>this.redirectCadastro(e)}>Cadastrar</button>
-                    </div>
-                </div>
-        </div> 
+            <LoginForm user={this.state.user}
+            userLogin={this.userLogin}
+            updateField={this.updateField}
+            redirectCadastro={this.redirectCadastro}></LoginForm>
         )
     }
 }
