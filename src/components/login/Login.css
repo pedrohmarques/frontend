@@ -1,13 +1,32 @@
 .row{
-    margin: 13vw 20vw 13vw 40vw;
-    padding: 10px 10px 10px 10px;
+    margin: 10vw 20vw 10vw 35vw;
+    padding: 40px 100px 40px 100px;
     background-color: #ffffff;
-    border-style: solid;
+    border-style: solid transparent;
     border-color: black;
-    border-radius: 10px 10px 10px 10px;
     box-shadow: var(--shadow);
 }
 
 .form{
     margin: auto;
+}
+
+.logo-login{
+    margin: auto;
+    width: 25%;
+    height: 25%;
+    padding-bottom: 10%;
+}
+
+.logo-login > img{
+    width: 100%;
+    height: 100%;
+}
+
+.pt-20{
+    padding-top: 20px;
+}
+
+body{
+    overflow: hidden;
 }

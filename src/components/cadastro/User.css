@@ -1,0 +1,16 @@
+.row-user{
+    margin: 10vw 20vw 10vw 35vw;
+    padding: 40px 100px 40px 100px;
+    background-color: #ffffff;
+    border-style: solid transparent;
+    border-color: black;
+    box-shadow: var(--shadow);
+}
+
+.form{
+    margin: auto;
+}
+
+body{
+    overflow: hidden;
+}

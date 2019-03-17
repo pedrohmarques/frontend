@@ -35,8 +35,8 @@ export default props =>
                     placeholder="Digite a senha..." />
             </div>
         </div>
-        <div className="col-12 d-flex justify-content-end">
-            <button className="btn btn-primary">Cadastrar</button>
+        <div className="col-12 d-flex justify-content-end pt-20">
+            <button className="btn btn-primary" onClick={e => props.cadastro(e)}>Cadastrar</button>
             <button className="btn btn-secondary ml-2" onClick={e => props.backLogin(e)}>Voltar</button>
         </div>
     </div>

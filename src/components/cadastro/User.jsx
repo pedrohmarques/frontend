@@ -13,7 +13,16 @@ export default class User extends Component{
         super(props)
         this.state = {...initialState}
         this.updateField = this.updateField.bind(this)
+        this.cadastro = this.cadastro.bind(this)
         this.backLogin = this.backLogin.bind(this)
+    }
+
+    cadastro(){
+        const user = this.state.user;
+        axios.post(baseUrl, user)
+            .then(resp => {
+                console.log(resp.data)
+            })
     }
 
     updateField(event){
@@ -30,6 +39,7 @@ export default class User extends Component{
         return(
            <UserForm user={this.state.user}
            updateField={this.updateField}
+           cadastro={this.cadastro}
            backLogin={this.backLogin}></UserForm> 
         )
     }

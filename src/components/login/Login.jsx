@@ -12,8 +12,6 @@ const initialState = {
 
 export default class Login extends Component
 {
-    
-
     constructor(props){
         super(props)
         this.state = {...initialState}
@@ -47,6 +45,7 @@ export default class Login extends Component
             userLogin={this.userLogin}
             updateField={this.updateField}
             redirectCadastro={this.redirectCadastro}></LoginForm>
+            
         )
     }
 }
