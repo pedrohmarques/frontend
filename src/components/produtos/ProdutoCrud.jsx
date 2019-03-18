@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Main from '../template/Main'
 import FieldAdd from './components/FieldAdd';
+import Item from './components/Item';
 
 const headerProps = {
     icon: 'shopping-cart',
@@ -12,6 +13,7 @@ export default class UserCrud extends Component {
         return(
             <Main {...headerProps}>
                 <FieldAdd description="Adicionar Produto"/>
+                <Item/>
             </Main>
         )
     }
