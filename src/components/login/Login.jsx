@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import $ from 'jquery'
 
 import './Login.css'
 import LoginForm from './loginForm'
@@ -22,11 +23,9 @@ export default class Login extends Component
 
     userLogin(){
         const user = this.state.user
-        this.props.history.push('/home')
-        // axios.post(baseUrl, user)
-        //     .then(resp =>{
-        //         console.log(resp.data)
-        //     })
+        $.post(baseUrl, user).then(resp =>{
+            this.props.history.push('/home')    
+        })
     }
 
     updateField(event){

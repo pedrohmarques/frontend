@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import $ from 'jquery'
 
 import UserForm from './UserForm'
 
@@ -19,10 +20,8 @@ export default class User extends Component{
 
     cadastro(){
         const user = this.state.user;
-        axios.post(baseUrl, user)
-            .then(resp => {
-                console.log(resp.data)
-            })
+        console.log(user)
+        $.post( baseUrl, user )
     }
 
     updateField(event){
