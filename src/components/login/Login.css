@@ -30,3 +30,9 @@
 body{
     overflow: hidden;
 }
+
+.container{
+     height: 0px !important; 
+     background: #ffffff !important;
+     margin-top: 0px !important;
+}

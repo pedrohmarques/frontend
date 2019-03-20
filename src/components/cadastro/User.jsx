@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import axios from 'axios'
 import $ from 'jquery'
+import {NotificationManager} from 'react-notifications';
 
 import UserForm from './UserForm'
 
@@ -20,8 +20,14 @@ export default class User extends Component{
 
     cadastro(){
         const user = this.state.user;
-        console.log(user)
-        $.post( baseUrl, user )
+        $.post( baseUrl, user ).then(resp=>{
+            if(resp.id){
+                NotificationManager.success('Cadastrado com sucesso!')
+                this.props.history.push('/')
+            }
+        },error=>{
+            NotificationManager.error(error.responseJSON.message)
+        })
     }
 
     updateField(event){

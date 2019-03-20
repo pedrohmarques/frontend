@@ -1,4 +1,4 @@
-import React,{Component} from 'react'
+import React from 'react'
 
 import Logo from '../../assets/imgs/iconLogo.svg'
 
@@ -30,8 +30,8 @@ export default props =>  (
                         </div>
                     </div>
                     <div className="col-12 d-flex justify-content-end pt-20">
-                        <button className="btn btn-primary" onClick={e=> props.userLogin(e)}>Salvar</button>
-                        <button className="btn btn-secondary ml-2" onClick={e=>props.redirectCadastro(e)}>Cadastrar</button>
+                        <button className="btn btn-primary" onClick={e=>props.redirectCadastro(e)}>Cadastrar</button>
+                        <button className="btn btn-secondary ml-2" onClick={e=> props.userLogin(e)}>Entrar</button>
                     </div>
                 </div>
         </div>

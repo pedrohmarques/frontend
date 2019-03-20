@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import axios from 'axios'
 import $ from 'jquery'
+import {NotificationManager} from 'react-notifications';
 
 import './Login.css'
 import LoginForm from './loginForm'
@@ -24,7 +24,10 @@ export default class Login extends Component
     userLogin(){
         const user = this.state.user
         $.post(baseUrl, user).then(resp =>{
-            this.props.history.push('/home')    
+            if(resp.id)
+              this.props.history.push('/home')    
+        },error=>{
+            NotificationManager.error(error.responseJSON.message);
         })
     }
 
@@ -37,14 +40,17 @@ export default class Login extends Component
     redirectCadastro(){
         this.props.history.push('/users')
     }
-    
+
     render(){
         return(
-            <LoginForm user={this.state.user}
-            userLogin={this.userLogin}
-            updateField={this.updateField}
-            redirectCadastro={this.redirectCadastro}></LoginForm>
-            
+            <div className="container">
+                <LoginForm 
+                    user={this.state.user}
+                    userLogin={this.userLogin}
+                    updateField={this.updateField}
+                    redirectCadastro={this.redirectCadastro}>
+                </LoginForm>
+            </div>
         )
     }
 }
