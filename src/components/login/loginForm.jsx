@@ -11,7 +11,7 @@ export default props =>  (
                     <div className="col-12 col-md-12 d-flex">
                         <div className="form-group">
                             <label>E-mail</label>
-                            <input type="text" className="form-control"
+                            <input type="text" className="form-control" maxLength="25"
                                 name="email"
                                 value={props.user.email}
                                 onChange={e=>props.updateField(e)}
@@ -22,7 +22,7 @@ export default props =>  (
                     <div className="col-12 col-md-12 d-flex">
                         <div className="form-group">
                             <label>Senha</label>
-                            <input type="password" className="form-control"
+                            <input type="password" className="form-control" maxLength="8"
                                 name="senha"
                                 value={props.user.senha}
                                 onChange={e=>props.updateField(e)}

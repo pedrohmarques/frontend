@@ -1,6 +1,7 @@
 import './Nav.css'
 import React from 'react'
 import { Link } from 'react-router-dom'
+import {logout} from '../services/auth'
 
 export default props =>
 (
@@ -15,9 +16,7 @@ export default props =>
             <Link to="/products">
                 <i className="fa fa-shopping-cart"></i> Produtos
             </Link>
-            <Link to="/">
-                <i></i> Sair
-            </Link>
+            <Link to="/"><i></i> Sair</Link>
         </nav>
     </aside>
 )

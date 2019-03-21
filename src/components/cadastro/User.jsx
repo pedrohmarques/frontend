@@ -20,14 +20,31 @@ export default class User extends Component{
 
     cadastro(){
         const user = this.state.user;
-        $.post( baseUrl, user ).then(resp=>{
-            if(resp.id){
-                NotificationManager.success('Cadastrado com sucesso!')
-                this.props.history.push('/')
-            }
-        },error=>{
-            NotificationManager.error(error.responseJSON.message)
-        })
+        const valid = this.validacaoDeCampos(user)
+        if(valid){
+            $.post( baseUrl, user ).then(resp=>{
+                if(resp.id){
+                    NotificationManager.success('Cadastrado com sucesso!')
+                    this.props.history.push('/')
+                }
+            },error=>{
+                NotificationManager.error(error.responseJSON.message)
+            })
+        }
+    }
+    validacaoDeCampos(user){
+        if(/[0-9]/g.test(user.nome)){
+            NotificationManager.warning('Campo nome pode haver apenas letras.') 
+            return false
+        }
+
+        if(user.email === "" || user.email.indexOf('@') === -1 
+        || user.email.indexOf('.') === -1 ){
+            NotificationManager.warning("Por favor, informe um E-mail válido!");
+            return false;
+        }
+
+        return true
     }
 
     updateField(event){
