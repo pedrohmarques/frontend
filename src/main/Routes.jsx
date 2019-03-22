@@ -8,6 +8,7 @@ import Home from '../components/home/Home'
 import ListaCrud from '../components/listas/ListaCrud'
 import CategoriaCrud from '../components/categorias/CategoriaCrud'
 import ProdutoCrud from '../components/produtos/ProdutoCrud'
+import DetalheLista from '../components/listas/detalhe/DetalheLista'
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route
@@ -31,6 +32,7 @@ const Routes = () => {
         <PrivateRoute exact path='/list' component={ListaCrud}></PrivateRoute>
         <PrivateRoute exact path='/categories' component={CategoriaCrud}></PrivateRoute>
         <PrivateRoute exact path='/products' component={ProdutoCrud}></PrivateRoute>
+        <PrivateRoute exact path='/viewlist' component={DetalheLista}></PrivateRoute>
         <Redirect from='*' to='/home'></Redirect>
     </Switch>
     )

@@ -1,12 +1,48 @@
 import React, { Component } from 'react'
+import Popup from "reactjs-popup";
+import Input from "./input/Input"
+import InputImg from "./input/InputImg"
+import './input/Input.css'
 
 export default class NewList extends Component{
-
+    constructor(props) {
+        super(props)
+        this.state = { open: false }
+        this.openModal = this.openModal.bind(this)
+        this.closeModal = this.closeModal.bind(this)
+      }
+      openModal (){
+        this.setState({ open: true })
+      }
+      closeModal () {
+        this.setState({ open: false })
+      }
+      
     render(){
         return(
-            <button className="btn btn-light btn-lg btn-block">
-            <i className="fa fa-plus"> Nova Lista</i>
-        </button>
+        <div>
+            <button type="button" className="btn btn-dark center-block" onClick={this.openModal}> <i className="fa fa-plus"/>  Novo Produto</button>
+            <Popup
+                open={this.state.open}
+                closeOnDocumentClick
+                onClose={this.closeModal}
+            >
+                <div className="popup">
+                    <div className="header"> <h5>Cadastro de Lista</h5> </div>
+                    <div className="content col-xs-4">
+                        <InputImg id="imagem" description="Imagem"></InputImg>
+                        <Input id="valor" description="Preço" placeholder="5,00" ></Input>
+                        <Input id="produto" description="Nome" placeholder="Coca-Cola 250ml" ></Input>
+                    </div>
+                    <div className="actions">
+                        <button type="button" class="btn btn-info left-block buttonAdd" onClick={this.closeModal}> Salvar </button>
+                    </div>
+                    <a className="close" onClick={this.closeModal}>
+                        &times;
+                    </a>
+                </div>
+            </Popup>
+        </div>
         )
     }
 }

@@ -3,6 +3,7 @@ import Main from '../template/Main'
 import axios from 'axios'
 
 import NewList from './NewList'
+import Detalhe from './detalhe/DetalheLista'
 import './ListaCrud.css'
 
 const headerProps = {
@@ -17,37 +18,69 @@ const initialState = {
 
 export default class ListaCrud extends Component {
     state = {...initialState}
+    constructor(props){
+        super(props)
+        this.state = {...initialState}
+        this.componentWillMount = this.componentWillMount.bind(this)
+        this.renderList = this.renderList.bind(this)
+        this.renderRows = this.renderRows.bind(this)
+        this.redirectView = this.redirectView.bind(this)
+    }
     
     componentWillMount(){
-        axios(`${listGroup}/9/groups`).then(resp=>{
+        const userId = localStorage.getItem('USER-ID')
+        // const userId = 9
+        axios(`${listGroup}/${userId}/groups`).then(resp=>{
             this.setState({ list: resp.data })
         })
     }
 
     renderList(){
-        console.log(this.state.list)
-        return this.state.list.map(grupo =>{
-            return grupo.listasDeCompras.map(listas => {
-                return grupo.usuarios.map(users =>{
-                    return(
-                        <div className="container">
-                            <div className="container-bola"> </div>
-                            <ul className="list-group" key={grupo.id}>
-                                <li id="nomeLista" className="list-group-item">{listas.nome}</li>
-                                <li className="integrantes">{users.usuario.nome}</li>
-                            </ul>
-                        </div>
-                    )
-                })
+        return(
+            <table className="table">
+                <thead className="thead-dark">
+                    <tr>
+                        <th scope="col">Lista</th>
+                        <th scope="col">Criador</th>
+                        <th scope="col">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {this.renderRows()}
+                </tbody>
+            </table>
+        )
+    }
+
+    renderRows(){
+        
+        return this.state.list.map(grupo=>{
+            return grupo.listasDeCompras.map(lista => {
+                return (
+                    <tr key={lista.id}>
+                        <td>{lista.nome}</td>
+                        <td>{grupo.criador.nome}</td>
+                        <td>
+                            <button className="btn btn-warning" onClick={e=>this.redirectView(lista.id)}>
+                                <i className="fa fa-pencil"></i>
+                            </button>
+                        </td>
+                    </tr>
+                )
             })
         })
+    }
+
+    redirectView(listaId){
+        localStorage.setItem('listSelect', listaId)
+        this.props.history.push('/viewlist') 
     }
 
 
     render(){
         return(
             <Main {...headerProps}>
-                <NewList></NewList>
+               <NewList></NewList>
                 {this.renderList()}
             </Main>
         )

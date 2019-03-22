@@ -65,14 +65,14 @@ export default class Login extends Component
 
     render(){
         return(
-            <div className="container">
-                <LoginForm 
-                    user={this.state.user}
-                    userLogin={this.userLogin}
-                    updateField={this.updateField}
-                    redirectCadastro={this.redirectCadastro}>
-                </LoginForm>
-            </div>
+            
+            <LoginForm 
+                user={this.state.user}
+                userLogin={this.userLogin}
+                updateField={this.updateField}
+                redirectCadastro={this.redirectCadastro}>
+            </LoginForm>
+            
         )
     }
 }
