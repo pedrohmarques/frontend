@@ -29,7 +29,7 @@ export default class Login extends Component
         if(valid){
             $.post(baseUrl, user).then(resp =>{
                 if(resp.id){
-                    login(resp.id)
+                    login(JSON.stringify(resp))
                     this.props.history.push('/home')  
                 }
                     

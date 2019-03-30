@@ -2,10 +2,12 @@ import React, {Component} from 'react'
 import Main from '../../template/Main'
 
 import TableCategoria from './TableCategoria'
+import Lista from './Lista'
 
+const listaAtual = localStorage.getItem('listSelect')
 const headerProps = {
-    icon: 'list-alt',
-    title: 'Detalhe de Lista'
+    icon: 'list-alt'
+    // title: 'Lista: ' + JSON.parse(listaAtual).nome
 }
 
 const initialState = {
@@ -17,13 +19,10 @@ export default class DetalheLista extends Component{
         this.state = {...initialState}
     }
 
-    renderTableCategoria(){
-        
-    }
-
     render(){
         return(
             <Main {...headerProps}>
+                <Lista></Lista>
                 <TableCategoria></TableCategoria>
             </Main>
         )
