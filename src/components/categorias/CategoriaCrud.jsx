@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import Main from '../template/Main'
+import FieldAdd from './components/FieldAdd';
+import TableCategorias from './components/TableCategorias';
 
 const headerProps = {
     icon: 'folder',
@@ -10,7 +12,8 @@ export default class CategoriaCrud extends Component {
     render(){
         return(
             <Main {...headerProps}>
-                Cadastro da Categoria
+                <FieldAdd classButton="btn btn-dark center-block" classIcon="fa fa-plus" iconContent="Nova Categoria"/>
+                <TableCategorias/>
             </Main>
         )
     }

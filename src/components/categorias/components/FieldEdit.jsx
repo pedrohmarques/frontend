@@ -1,8 +1,6 @@
 import React from 'react'
 import Popup from "reactjs-popup";
 import Input from "./Input"
-import InputImg from "./InputImg"
-import InputSelect from "./InputSelect"
 import axios from 'axios'
 import '../css/Input.css'
 
@@ -22,8 +20,8 @@ export default class FieldEdit extends React.Component {
       this.setState({ open: false })
     }
 
-    saveProduto () {
-      //axios.post(url+"products"+)
+    saveCategoria () {
+      //axios.post(url+"categories"+)
       this.closeModal()
     }
 
@@ -37,12 +35,9 @@ export default class FieldEdit extends React.Component {
             onClose={this.closeModal}
           >
             <div className="popup">
-                <div className="header"> <h5>Produto</h5> </div>
+                <div className="header"> <h5>Categoria</h5> </div>
                 <div className="form-group content col-xs-4">
-                    <InputImg id="imagem" description="Imagem"></InputImg>
-                    <Input id="produto" description="Nome" placeholder={this.props.produto.nome}></Input>
-                    <Input id="valor" description="Preço" placeholder={this.props.produto.preco}></Input>
-                    <InputSelect id="categoria" description="Categorias"/>
+                    <Input id="categoria" description="Nome" placeholder={this.props.categoria.nome}></Input>
                 </div>
                 <div className="actions">
                     <button type="button" className="btn btn-info left-block buttonAdd" onClick={this.closeModal}> Salvar </button>

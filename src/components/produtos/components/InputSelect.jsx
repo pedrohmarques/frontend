@@ -11,12 +11,11 @@ export default class InputSelect extends Component{
         this.rows = axios.get(this.props.url)
     }
     render(){
-        this.renderRows()
+        {this.renderRows()}
         return(
-        <div class="form-group">
-             {this.renderRows}
+        <div>
             <label ><h6>{this.props.description}</h6></label>
-            <select class="form-control">
+            <select className="form-control">
                 {rows.map(row =>(
                     <option>{row.nome}</option>
                     )

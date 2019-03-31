@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 //import axios from 'axios'
 import '../css/TableProdutos.css'
 import FieldEdit from  './FieldEdit'
+import axios from 'axios';
 
 const url = "https://will-list.herokuapp.com/";
 var produtos = [
@@ -26,12 +27,19 @@ var produtos = [
   ];
 
 export default class TableProdutos extends Component{
-    
+    constructor(props) {
+        super(props)
+        this.listProdutos = this.listProdutos.bind(this)
+      }
+
     listProdutos (){
-        // this.produtos = axios({
-        //     url: url+'lists/',
-        //     method: 'get'
-        //   });
+        // this.produtos = axios.get(url+"products");
+    };
+
+    deleteProduto(produto){
+        // axios.post(url+"products/"+produto.id).then(function(callback){
+        //     this.forceUpdate();
+        // });
     };
     renderRows(){
         return produtos.map(produto=>(
@@ -40,10 +48,8 @@ export default class TableProdutos extends Component{
                 <td>{produto.preco}</td>
                 <td>{produto.categoria.nome}</td>
                 <td className="text-center">
-                <FieldEdit preco={produto.preco} produtoNome={produto.nome} produtoId ={produto.id} categoriaNome ={produto.categoria.nome} categoriaId={produto.categoria.id}/>
-               <button className="btn btn-warning ml-2">
-                    <i className="fa fa-trash"></i>
-               </button>
+                <FieldEdit produto={produto}/>
+                <button type="button" className="btn btn-warning d-inline ml-2" onClick={(e) => this.deleteProduto(produto, e)}> <i className="fa fa-trash"/></button>
                 </td>
             </tr>
         )
