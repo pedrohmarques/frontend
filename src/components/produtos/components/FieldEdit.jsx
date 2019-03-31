@@ -22,6 +22,11 @@ export default class FieldEdit extends React.Component {
       this.setState({ open: false })
     }
 
+    changeState (type, value){
+      var self = this;
+      this.setState({[type]  : value});
+    }
+
     saveProduto () {
       //axios.post(url+"products"+)
       this.closeModal()
@@ -42,7 +47,7 @@ export default class FieldEdit extends React.Component {
                     <InputImg id="imagem" description="Imagem"></InputImg>
                     <Input id="produto" description="Nome" placeholder={this.props.produto.nome}></Input>
                     <Input id="valor" description="Preço" placeholder={this.props.produto.preco}></Input>
-                    <InputSelect id="categoria" description="Categorias"/>
+                    <InputSelect id="categoria" changeState={this.changeState} description="Categorias" getUrl="categories/"/>
                 </div>
                 <div className="actions">
                     <button type="button" className="btn btn-info left-block buttonAdd" onClick={this.closeModal}> Salvar </button>

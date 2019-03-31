@@ -4,26 +4,21 @@ import '../css/TableCategorias.css'
 import FieldEdit from  './FieldEdit'
 import axios from 'axios';
 
-const url = "https://will-list.herokuapp.com/";
-var categorias = [
-    {
-        "id": 7,
-        "nome": "Alimentos"
-    },
-    {
-      "id": 1,
-      "nome": "Limpeza"
-    }
-  ];
+const baseUrl = "https://will-list.herokuapp.com/";
 
 export default class TableCategorias extends Component{
     constructor(props) {
         super(props)
-        this.listCategorias = this.listCategorias.bind(this)
+        this.state = { data:[]}
+        this.listCategorias()
       }
 
     listCategorias (){
-        // this.categorias = axios.get(url+"categories");
+        axios.get(baseUrl+"categories/").then(function(callback){
+            this.setState({data : callback.data})
+        }.bind(this)).catch(function(response){
+            console.log(response)
+        });
     };
 
     deleteCategoria(categoria){
@@ -32,7 +27,7 @@ export default class TableCategorias extends Component{
         // });
     };
     renderRows(){
-        return categorias.map(categoria=>(
+        return this.state.data.map(categoria=>(
                 <tr key={categoria.id}>
                     <td>{categoria.nome}</td>
                     <td></td>
@@ -47,7 +42,6 @@ export default class TableCategorias extends Component{
     }
 
     render(){
-        {this.listCategorias()}
         return(
             <table className="table">
                 <thead className="thead-dark">

@@ -4,45 +4,32 @@ import '../css/TableProdutos.css'
 import FieldEdit from  './FieldEdit'
 import axios from 'axios';
 
-const url = "https://will-list.herokuapp.com/";
-var produtos = [
-    {
-      "id": 3,
-      "nome": "Biscoito Club Social",
-      "preco": 4,
-      "categoria": {
-        "id": 2,
-        "nome": "Lanches"
-      }
-    },
-    {
-      "id": 1,
-      "nome": "Água",
-      "preco": 2,
-      "categoria": {
-        "id": 1,
-        "nome": "Bebidas"
-      }
-    }
-  ];
+const baseUrl = "https://will-list.herokuapp.com/";
 
-export default class TableProdutos extends Component{
+export default class TableProdutos extends React.Component{
     constructor(props) {
         super(props)
-        this.listProdutos = this.listProdutos.bind(this)
+        this.state = {
+            data : []
+        }
+        this.listProdutos()
       }
 
     listProdutos (){
-        // this.produtos = axios.get(url+"products");
-    };
+        axios.get(baseUrl+"categories/2").then(function(callback){
+            this.setState({data : callback.data})
+        }.bind(this)).catch(function(response){
+            console.log(response)
+        });
+     };
 
     deleteProduto(produto){
         // axios.post(url+"products/"+produto.id).then(function(callback){
         //     this.forceUpdate();
-        // });
+        // }.bind(this));
     };
     renderRows(){
-        return produtos.map(produto=>(
+        return this.state.data.map(produto=>(
             <tr key={produto.id}>
                 <td>{produto.nome}</td>
                 <td>{produto.preco}</td>
@@ -57,7 +44,6 @@ export default class TableProdutos extends Component{
     }
 
     render(){
-        {this.listProdutos()}
         return(
             <table className="table">
                 <thead className="thead-dark">
