@@ -5,9 +5,10 @@ import TableCategoria from './TableCategoria'
 import Lista from './Lista'
 
 const listaAtual = localStorage.getItem('listSelect')
+const listaNome = listaAtual == null ? '' : JSON.parse(listaAtual).nome
 const headerProps = {
-    icon: 'list-alt'
-    // title: 'Lista: ' + JSON.parse(listaAtual).nome
+    icon: 'list-alt',
+    title: 'Lista: ' + listaNome
 }
 
 const initialState = {

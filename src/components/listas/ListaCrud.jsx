@@ -4,6 +4,7 @@ import axios from 'axios'
 import {NotificationManager} from 'react-notifications';
 
 import NewList from './NewList'
+import AlteraProdutoPopup from './AlteraProdutoPopup'
 import Detalhe from './detalhe/DetalheLista'
 import './ListaCrud.css'
 
@@ -15,11 +16,11 @@ const headerProps = {
 const listGroup = 'http://localhost:8080/users'
 const listaUrl = 'http://localhost:8080/lists'
 const initialState = {
+    user: {nome: ""},
     list: []
 }
 
 export default class ListaCrud extends Component {
-    state = {...initialState}
     constructor(props){
         super(props)
         this.state = {...initialState}
@@ -27,6 +28,7 @@ export default class ListaCrud extends Component {
         this.renderList = this.renderList.bind(this)
         this.renderRows = this.renderRows.bind(this)
         this.redirectView = this.redirectView.bind(this)
+        this.updateField = this.updateField.bind(this)
     }
     
     componentWillMount(){
@@ -35,6 +37,12 @@ export default class ListaCrud extends Component {
         axios(`${listGroup}/${JSON.parse(user).id}/groups`).then(resp=>{
             this.setState({ list: resp.data })
         })
+    }
+
+    updateField(event){
+        const user = {...this.state.user}
+        user[event.target.name] = event.target.value
+        this.setState({user})
     }
 
     renderList(){
@@ -62,15 +70,18 @@ export default class ListaCrud extends Component {
                         <td>{lista.nome}</td>
                         <td>{grupo.criador.nome}</td>
                         <td>
-                            <button className="btn btn-warning">
-                                <i className="fa fa-pencil"></i>
-                            </button>
-                            <button className="btn btn-danger ml-2" onClick={e=>this.delete(lista)}>
-                                <i className="fa fa-trash"></i>
-                            </button>
-                            <button className="btn btn-warning ml-2" onClick={e=>this.redirectView(lista)}>
-                                <i className="fa fa-list-alt"></i>
-                            </button>
+                            <AlteraProdutoPopup 
+                                lista={lista}
+                                user={this.state.user}
+                                state={this}
+                                update={this.update}
+                                updateField={this.updateField}
+                                delete = {this.delete}
+                                redirectView = {this.redirectView}
+                                getUpdateList={this.getUpdateList}
+                                grupo={grupo}
+                            ></AlteraProdutoPopup>
+                            
                         </td>
                     </tr>
                 )
@@ -78,17 +89,17 @@ export default class ListaCrud extends Component {
         })
     }
 
-    redirectView(lista){
+    redirectView(lista, grupo){
         localStorage.setItem('listSelect', JSON.stringify(lista))
+        localStorage.setItem('usuarios', JSON.stringify(grupo.usuarios))
         this.props.history.push('/viewlist') 
     }
 
     getUpdateList(lista, add=true){
-        var listUpdate = this.state.list
+        var listUpdate = this.state.state.list
         for(var posicao in listUpdate){
             listUpdate[posicao].listasDeCompras = listUpdate[posicao].listasDeCompras.filter(u => u.id !== lista.id)
         }
-
         if(add) listUpdate.unshift(lista)
         return listUpdate
     }
@@ -98,12 +109,21 @@ export default class ListaCrud extends Component {
             then(resp =>{
                 NotificationManager.success("Lista excluida com sucesso!")
                 const list = this.getUpdateList(lista, false)
-                this.setState({list})
+                this.state.setState({list})
             }, error=>{
                 NotificationManager.error(error.responseJSON.message)
             })
     }
 
+    update(lista){
+        const nome = {listName: this.user.nome}
+        axios.put(`${listaUrl}/${lista.id}`, JSON.stringify(nome)).
+            then(resp => {
+                NotificationManager.success("Lista atualizada com sucesso!") 
+                // const listUpdate = this.getUpdateList(resp.data)
+                // this.setState({list: initialState.list, listUpdate})
+            })
+    }
 
     render(){
         return(
