@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Main from '../template/Main'
 import FieldAdd from './components/FieldAdd';
-import Item from './components/Item';
+import TableProdutos from './components/TableProdutos';
 
 const headerProps = {
     icon: 'shopping-cart',
@@ -12,8 +12,8 @@ export default class UserCrud extends Component {
     render(){
         return(
             <Main {...headerProps}>
-                <FieldAdd description="Adicionar Produto"/>
-                <Item/>
+                <FieldAdd classButton="btn btn-dark center-block" classIcon="fa fa-plus" iconContent="Novo Produto"/>
+                <TableProdutos/>
             </Main>
         )
     }

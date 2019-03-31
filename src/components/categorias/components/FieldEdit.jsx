@@ -1,12 +1,12 @@
 import React from 'react'
 import Popup from "reactjs-popup";
 import Input from "./Input"
-import InputImg from "./InputImg"
-import InputSelect from "./InputSelect"
 import axios from 'axios'
 import '../css/Input.css'
 
-export default class FieldAdd extends React.Component {
+const url = "https://will-list.herokuapp.com/";
+
+export default class FieldEdit extends React.Component {
     constructor(props) {
       super(props)
       this.state = { open: false }
@@ -20,30 +20,27 @@ export default class FieldAdd extends React.Component {
       this.setState({ open: false })
     }
 
-    saveProduto () {
-      axios.post(this.props.openModal)
+    saveCategoria () {
+      //axios.post(url+"categories"+)
       this.closeModal()
     }
 
     render() {
       return (
         <div className="d-inline">
-        <button type="button" className={this.props.classButton} onClick={this.openModal}> <i className={this.props.classIcon}/>  {this.props.iconContent}</button>
+        <button type="button" className="btn btn-warning" onClick={this.openModal}> <i className="fa fa-pencil"/></button>
           <Popup
             open={this.state.open}
             closeOnDocumentClick
             onClose={this.closeModal}
           >
             <div className="popup">
-                <div className="header"> <h5>Produto</h5> </div>
+                <div className="header"> <h5>Categoria</h5> </div>
                 <div className="form-group content col-xs-4">
-                    <InputImg id="imagem" description="Imagem"></InputImg>
-                    <Input id="valor" description="Preço" placeholder={this.props.preco}></Input>
-                    <Input id="produto" description="Nome" placeholder={this.props.produto}></Input>
-                    <InputSelect description="Categorias" getUrl="https://will-list.herokuapp.com/categories/" />
+                    <Input id="categoria" description="Nome" placeholder={this.props.categoria.nome}></Input>
                 </div>
                 <div className="actions">
-                    <button type="button" class="btn btn-info left-block buttonAdd" onClick={this.closeModal}> Salvar </button>
+                    <button type="button" className="btn btn-info left-block buttonAdd" onClick={this.closeModal}> Salvar </button>
                 </div>
                 <a className="close" onClick={this.closeModal}>
                     &times;
