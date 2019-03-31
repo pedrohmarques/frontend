@@ -1,4 +1,4 @@
-export const TOKEN_KEY = "USER-ID";
+export const TOKEN_KEY = "USER";
 export const isAuthenticated = () => localStorage.getItem(TOKEN_KEY) !== null;
 export const getToken = () => localStorage.getItem(TOKEN_KEY);
 

@@ -1,42 +1,48 @@
 import React, {Component} from 'react'
 import axios from 'axios'
 
+const categoriaURL = 'http://localhost:8080/categories'
+
 export default class TableCategoria extends Component{
-    renderRows(){
-        
-        return('')
-        // return this.state.list.map(grupo=>{
-        //     return grupo.listasDeCompras.map(lista => {
-        //         return (
-        //             // <tr key={lista.id}>
-        //             //     <td>{lista.nome}</td>
-        //             //     <td>{grupo.criador.nome}</td>
-        //             //     <td>
-        //             //         <button className="btn btn-warning" onClick={e=>this.redirectView(lista.id)}>
-        //             //             <i className="fa fa-pencil"></i>
-        //             //         </button>
-        //             //     </td>
-        //             // </tr>
-        //             '2'
-        //         )
-        //     })
+    getCategoria(){
+        const id = '1'
+        axios.get(`${categoriaURL}/${id}`).then(
+            resp => {
+               return resp.data        
+            }
+        )
+    }
+    
+    renderTable(){
+        '1'
+        // Promise.all(this.getCategoria()).then(resp=>{
+        //     console.log(resp)
         // })
+        // return categorias.map(produto =>{
+        //     return(
+        //         <table className="table">
+        //             <thead className="thead-dark">
+        //                 <tr key={produto.categoria.id}>
+        //                     <th scope="col">{produto.categoria.nome}</th>
+        //                 </tr>
+        //             </thead>
+        //             <tbody>
+        //                 <tr key={produto.id}>
+        //                     <td>{produto.nome}</td>
+        //                     <td>{produto.preco}</td>
+        //                 </tr>
+        //             </tbody>
+        //         </table>
+        //     )
+        // }) 
+        
     }
 
     render(){
         return(
-            <table className="table">
-                <thead className="thead-dark">
-                    <tr>
-                        <th scope="col">Categoria</th>
-                        <th scope="col">Valor</th>
-                        <th scope="col">Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {this.renderRows()}
-                </tbody>
-            </table>
+           <div>
+               {this.renderTable()}
+           </div>
         )
     }
 
