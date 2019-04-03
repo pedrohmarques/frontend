@@ -8,12 +8,13 @@ const headerProps = {
     title: 'Minhas Categorias'
 }
 
-export default class CategoriaCrud extends Component {
+const baseUrl = "https://will-list.herokuapp.com/"
+export default class CategoriaCrud extends Component {   
     render(){
         return(
             <Main {...headerProps}>
-                <FieldAdd classButton="btn btn-dark center-block" classIcon="fa fa-plus" iconContent="Nova Categoria"/>
-                <TableCategorias/>
+                <FieldAdd baseUrl={baseUrl} classButton="btn btn-dark center-block" classIcon="fa fa-plus" iconContent="Nova Categoria"/>
+                <TableCategorias baseUrl={baseUrl}/>
             </Main>
         )
     }

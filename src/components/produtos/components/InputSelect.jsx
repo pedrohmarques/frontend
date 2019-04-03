@@ -7,7 +7,6 @@ export default class InputSelect extends Component{
         super(props)
         this.state = { data: []}
         this.renderRows = this.renderRows.bind(this)
-        this.changeState = this.changeState.bind(this)
         this.renderRows()
     }
     
@@ -19,17 +18,11 @@ export default class InputSelect extends Component{
         });
     }
 
-    changeState(e){
-        var value = e.currentTarget.value
-        var type = this.props.id
-        this.props.changeState(type,value)
-    }
     render(){
         return(
         <div>
             <label ><h6>{this.props.description}</h6></label>
-            <select className="form-control" onChange={this.changeState}>
-                <option></option>
+            <select className="form-control" onChange={(e) => this.props.changeState(this.props.type, e.target.value)}>
                 {this.state.data.map(row =>(
                     <option value={row.id}>{row.nome}</option>
                     )
