@@ -13,6 +13,7 @@ export default class InputSelect extends Component{
     renderRows(){
         axios.get(baseUrl + this.props.getUrl).then(function(callback){
             this.setState({data : callback.data})
+            this.props.changeState(this.props.type, callback.data[0].id)
         }.bind(this)).catch(function (response) {
             console.log(response);
         });

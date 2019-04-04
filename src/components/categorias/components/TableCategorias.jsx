@@ -26,14 +26,14 @@ export default class TableCategorias extends Component{
             {
                 headers: {'Access-Control-Allow-Origin': '*'}
             }).then(function(callback){
-                NotificationManager.warning('Categoria excluída.','',2000)
+                NotificationManager.success('Categoria excluida com sucesso.','',2000)
                 this.listCategorias()
             }.bind(this));
     };
 
     updateCategoria(categoria){
         axios.put(this.props.baseUrl+"categories/"+ categoria.id+'?nome='+categoria.nome).then(function(callback){
-            NotificationManager.success('Categoria atualizada.','',2000)
+            NotificationManager.success('Categoria atualizada com sucesso.','',2000)
             this.listCategorias()
         }.bind(this));
     };

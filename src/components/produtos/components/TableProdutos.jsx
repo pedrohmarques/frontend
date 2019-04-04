@@ -10,7 +10,8 @@ export default class TableProdutos extends React.Component{
         this.state = {
             data : []
         }
-        this.listProdutos =this.listProdutos.bind(this)
+        this.listProdutos = this.listProdutos.bind(this)
+        this.updateProduto = this.updateProduto.bind(this)
         this.listProdutos()
       }
 
@@ -24,20 +25,24 @@ export default class TableProdutos extends React.Component{
 
     deleteProduto(produto){
         axios.delete(this.props.baseUrl+"products/"+produto.id).then(function(callback){
-            NotificationManager.warning('Produto excluido.','',2000)
+            NotificationManager.success('Produto excluido com sucesso.','',2000)
             this.listProdutos();
-        }.bind(this));
+        }.bind(this)).catch(function(response){
+            NotificationManager.warning(response.message,'',2000)
+        });
     };
 
     updateProduto(produto){
-        axios.put(this.props.baseUrl+"products/"+ produto.id+'?nome='+produto.nome+'preco='+produto.preco+'idCategoria='+produto.idCategoria, {
+        axios.put(this.props.baseUrl+"products/"+ produto.id+'?nome='+produto.nome+'&preco='+produto.preco+'&idCategoria='+produto.idCategoria, {
                //nome: produto.nome
             //    preco: produto.preco,
             //    idCategoria : produto.idCategoria
         }).then(function(callback){
-            NotificationManager.success('Produto atualizado.','',2000)
+            NotificationManager.success('Produto atualizado com sucesso.','',2000)
             this.listProdutos()
-        }.bind(this));
+        }.bind(this)).catch(function(response){
+            NotificationManager.warning(response.message,'',2000)
+        });
     };
 
     renderRows(){
@@ -48,7 +53,7 @@ export default class TableProdutos extends React.Component{
                         <td>{produto.preco}</td>
                         <td>{categoria.nome}</td>
                         <td className="text-center">
-                        <FieldEdit produto={produto} categoria={categoria}/>
+                        <FieldEdit produto={produto} categoria={categoria} updateProduto={this.updateProduto}/>
                         <button type="button" className="btn btn-warning d-inline ml-2" onClick={(e) => this.deleteProduto(produto, e)}> <i className="fa fa-trash"/></button>
                         </td>
                     </tr>

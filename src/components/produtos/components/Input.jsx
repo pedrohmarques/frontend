@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 export default class Input extends Component{
     constructor(props) {
         super(props)
+        this.props.changeState(this.props.type, this.props.placeholder)
     }
     render(){
         return(

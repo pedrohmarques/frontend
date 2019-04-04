@@ -18,6 +18,7 @@ export default class FieldEdit extends React.Component {
       this.openModal = this.openModal.bind(this)
       this.closeModal = this.closeModal.bind(this)
       this.changeState = this.changeState.bind(this)
+      this.updateProduto = this.updateProduto.bind(this)
     }
     openModal (){
       this.setState({ open: true })
@@ -57,7 +58,7 @@ export default class FieldEdit extends React.Component {
                     <InputSelect type="idCategoria" changeState={this.changeState} description="Categorias" getUrl="categories/"/>
                 </div>
                 <div className="actions">
-                    <button type="button" className="btn btn-info left-block buttonAdd" onClick={this.closeModal}> Salvar </button>
+                    <button type="button" className="btn btn-info left-block buttonAdd" onClick={this.updateProduto}> Salvar </button>
                 </div>
                 <a className="close" onClick={this.closeModal}>
                     &times;
