@@ -46,7 +46,7 @@ export default class TableCategorias extends Component{
                     <td></td>
                     <td className="text-center">
                     <FieldEdit categoria={categoria} updateCategoria = {this.updateCategoria}/>
-                    <button type="button" className="btn btn-warning d-inline ml-2" onClick={(e) => this.deleteCategoria(categoria, e)}> <i className="fa fa-trash"/></button>
+                    <button type="button" className="btn btn-danger d-inline ml-2" onClick={(e) => this.deleteCategoria(categoria, e)}> <i className="fa fa-trash"/></button>
                     </td>
                 </tr>
             )

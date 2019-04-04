@@ -34,7 +34,8 @@ export default class FieldAdd extends React.Component {
       })
     }
     saveProduto () {
-      axios.post(this.props.baseUrl+'products/?nome='+this.state.nome+'&preco='+this.state.preco+'&idCategoria='+this.state.idCategoria,{
+      let preco = parseFloat(this.state.preco.replace(',','.'))
+      axios.post(this.props.baseUrl+'products/?nome='+this.state.nome+'&preco='+preco +'&idCategoria='+this.state.idCategoria,{
           // nome : this.state.nome,
           // preco : this.state.preco,
           // idCategoria : this.state.idCategoria

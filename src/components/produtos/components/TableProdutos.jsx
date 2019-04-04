@@ -26,6 +26,13 @@ export default class TableProdutos extends React.Component{
     deleteProduto(produto){
         axios.delete(this.props.baseUrl+"products/"+produto.id).then(function(callback){
             NotificationManager.success('Produto excluido com sucesso.','',2000)
+            // let tempData = this.state.data;
+            // for(let i = 0; i< tempData.length; i++){
+            //     for(let j = 0; j < tempData[j].produtos; j++){
+            //         if(tempData[i].produtos[j].id == produto.id) tempData[i].produtos.splice(j,1);
+            //     } 
+            // }
+            //this.setState({data : tempData})
             this.listProdutos();
         }.bind(this)).catch(function(response){
             NotificationManager.warning(response.message,'',2000)
@@ -54,7 +61,7 @@ export default class TableProdutos extends React.Component{
                         <td>{categoria.nome}</td>
                         <td className="text-center">
                         <FieldEdit produto={produto} categoria={categoria} updateProduto={this.updateProduto}/>
-                        <button type="button" className="btn btn-warning d-inline ml-2" onClick={(e) => this.deleteProduto(produto, e)}> <i className="fa fa-trash"/></button>
+                        <button type="button" className="btn btn-danger d-inline ml-2" onClick={(e) => this.deleteProduto(produto, e)}> <i className="fa fa-trash"/></button>
                         </td>
                     </tr>
                 )
