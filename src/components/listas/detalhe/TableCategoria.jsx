@@ -1,41 +1,53 @@
 import React, {Component} from 'react'
 import axios from 'axios'
 
-const categoriaURL = 'http://localhost:8080/categories'
-
+const categoriaURL = 'https://will-list.herokuapp.com/'
+const initialState = {
+    categories: []
+}
 export default class TableCategoria extends Component{
-    getCategoria(){
-        const id = '1'
-        axios.get(`${categoriaURL}/${id}`).then(
+
+    constructor(props){
+        super(props)
+        this.state = {...initialState}
+        this.componentWillMount = this.componentWillMount.bind(this)
+        this.renderTable = this.renderTable.bind(this)
+    }
+
+    componentWillMount(){
+        const list = localStorage.getItem('listSelect')
+        axios(`${categoriaURL}/${JSON.parse(list).id}/categories`).then(
             resp => {
-               return resp.data        
+                this.setState({ categories: resp.data })     
             }
         )
     }
     
     renderTable(){
-        '1'
-        // Promise.all(this.getCategoria()).then(resp=>{
-        //     console.log(resp)
-        // })
-        // return categorias.map(produto =>{
-        //     return(
-        //         <table className="table">
-        //             <thead className="thead-dark">
-        //                 <tr key={produto.categoria.id}>
-        //                     <th scope="col">{produto.categoria.nome}</th>
-        //                 </tr>
-        //             </thead>
-        //             <tbody>
-        //                 <tr key={produto.id}>
-        //                     <td>{produto.nome}</td>
-        //                     <td>{produto.preco}</td>
-        //                 </tr>
-        //             </tbody>
-        //         </table>
-        //     )
-        // }) 
-        
+        return this.state.categories.map(categoria =>{
+            return(
+                <table className="table">
+                    <thead className="thead-dark">
+                        <tr key={categoria.id}>
+                            <th scope="col">{categoria.nome}</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr key={categoria.produtos.id}>
+                            <td>{categoria.produtos.nome}</td>
+                            <td>{categoria.produtos.preco}</td>
+                            <td>
+                                <button className="btn btn-danger" onClick={e=>this.props.redirectView(this.props.lista, this.props.grupo)}>
+                                    <i className="fa fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            )
+        }) 
     }
 
     render(){

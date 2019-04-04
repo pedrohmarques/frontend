@@ -4,7 +4,7 @@ import {NotificationManager} from 'react-notifications';
 
 import UserForm from './UserForm'
 
-const baseUrl = 'http://localhost:8080/users/'
+const baseUrl = 'https://will-list.herokuapp.com/'
 const initialState = {
     user: {nome: "", email: "", senha: ""},
     list: []
@@ -22,7 +22,7 @@ export default class User extends Component{
         const user = this.state.user;
         const valid = this.validacaoDeCampos(user)
         if(valid){
-            $.post( baseUrl, user ).then(resp=>{
+            $.post(`${baseUrl}/users/`, user ).then(resp=>{
                 if(resp.id){
                     NotificationManager.success('Cadastrado com sucesso!')
                     this.props.history.push('/')

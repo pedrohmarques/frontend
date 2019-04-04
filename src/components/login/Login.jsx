@@ -6,7 +6,7 @@ import './Login.css'
 import {login, logout} from '../services/auth'
 import LoginForm from './loginForm'
 
-const baseUrl = 'http://localhost:8080/users/login'
+const baseUrl = 'https://will-list.herokuapp.com'
 const initialState = {
     user: {email: "", senha: ""},
     list: []
@@ -17,6 +17,7 @@ export default class Login extends Component
     constructor(props){
         super(props)
         logout()
+        localStorage.clear()
         this.state = {...initialState}
         this.userLogin = this.userLogin.bind(this)
         this.updateField = this.updateField.bind(this)
@@ -27,7 +28,7 @@ export default class Login extends Component
         const user = this.state.user
         const valid = this.validacaoDeCampos(user)
         if(valid){
-            $.post(baseUrl, user).then(resp =>{
+            $.post(`${baseUrl}/users/login`, user).then(resp =>{
                 if(resp.id){
                     login(JSON.stringify(resp))
                     this.props.history.push('/home')  

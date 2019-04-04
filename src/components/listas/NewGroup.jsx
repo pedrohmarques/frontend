@@ -4,10 +4,10 @@ import Input from "./input/Input"
 import InputImg from "./input/InputImg"
 import './input/Input.css'
 
-export default class NewList extends Component{
+export default class NewGroup extends Component{
     constructor(props) {
         super(props)
-        this.state = { open: false, selected: ""}
+        this.state = { open: false }
         this.openModal = this.openModal.bind(this)
         this.closeModal = this.closeModal.bind(this)
       }
@@ -17,46 +17,26 @@ export default class NewList extends Component{
       closeModal () {
         this.setState({ open: false })
       }
-      handleChange(e){
-        this.setState({
-          selected: e.target.value
-        })
-      }
-
-      renderGroups(){
-          return this.props.state.state.list.map(groups => {
-            return(
-                <option value={groups.id}>{groups.nome}</option>
-            )
-          })
-      }
       
     render(){
         return(
         <div>
-            <button type="button" className="btn btn-dark center-block" onClick={this.openModal}> <i className="fa fa-plus"/>  Nova Lista</button>
+            <button type="button" className="btn btn-dark center-block" onClick={this.openModal}> <i className="fa fa-plus"/>  Novo Grupo</button>
             <Popup
                 open={this.state.open}
                 closeOnDocumentClick
                 onClose={this.closeModal}
             >
                 <div className="popup">
-                    <div className="header"> <h5>Cadastro de Lista</h5> </div>
+                    <div className="header"> <h5>Cadastro de Grupo</h5> </div>
                     <div className="content col-xs-4">
                         <Input id="name" description="Nome do Grupo" placeholder="Grupo de 5"
                             name="nome" value={this.props.state.state.user.nome}
                             onChange={e=>this.props.updateField(e)}
                         ></Input>
-                        <div className="form-group">
-                            <select className="form-control" name="groupId"
-                            value={this.state.selected} 
-                            onChange={e => this.handleChange(e)}>
-                                {this.renderGroups()}
-                            </select>
-                        </div>
                     </div>
                     <div className="actions">
-                        <button type="button" class="btn btn-info left-block buttonAdd" onClick={e => this.props.createList(this.state.selected)}> Salvar </button>
+                        <button type="button" class="btn btn-info left-block buttonAdd" onClick={e => this.props.createGroup()}> Salvar </button>
                     </div>
                     <a className="close" onClick={this.closeModal}>
                         &times;

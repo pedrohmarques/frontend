@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import axios from 'axios'
 
+import FieldAdd from './FieldAddUser'
+
 export default class Lista extends Component{
     renderRows(){
         const usuarios = localStorage.getItem('usuarios')
@@ -26,6 +28,9 @@ export default class Lista extends Component{
                 <tbody>
                     {this.renderRows()}
                 </tbody>
+                <tfoot>
+                    <FieldAdd></FieldAdd>
+                </tfoot>
             </table>
         )
     }
