@@ -4,25 +4,24 @@ import Main from '../../template/Main'
 import TableCategoria from './TableCategoria'
 import Lista from './Lista'
 
-const listaAtual = localStorage.getItem('listSelect')
-const listaNome = listaAtual == null ? '' : JSON.parse(listaAtual).nome
-const headerProps = {
-    icon: 'list-alt',
-    title: 'Lista: ' + listaNome
-}
 
-const initialState = {
-    list: []
-}
 export default class DetalheLista extends Component{
     constructor(props){
         super(props)
-        this.state = {...initialState}
+        const listaAtual = localStorage.getItem('listSelect')
+        const listaNome = listaAtual == null ? '' : JSON.parse(listaAtual).nome
+        this.state = {
+            list: [],
+            header: {
+                icon: 'list-alt',
+                title: 'Lista: ' + listaNome
+            }
+        }
     }
 
     render(){
         return(
-            <Main {...headerProps}>
+            <Main {...this.state.header}>
                 <Lista></Lista>
                 <TableCategoria></TableCategoria>
             </Main>

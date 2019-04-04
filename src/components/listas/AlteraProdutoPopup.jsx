@@ -17,6 +17,11 @@ export default class AlteraProdutoPopup extends Component{
     closeModal () {
         this.setState({ open: false })
     }
+
+    updateList(){
+        this.props.update(this.props.lista)
+        this.closeModal()
+    }
       
     render(){
         return(
@@ -39,12 +44,12 @@ export default class AlteraProdutoPopup extends Component{
                     <div className="header"> <h5>Cadastro de Lista</h5> </div>
                     <div className="content col-xs-4">
                         <Input id="name" description="Nome da Lista" placeholder="Grupo de 5" name="nome"
-                                value={this.props.user.nome}
+                                value={this.props.state.state.user.nome}
                                 onChange={e=>this.props.updateField(e)}
                         ></Input>
                     </div>
                     <div className="actions">
-                        <button type="button" class="btn btn-info left-block buttonAdd" onClick={e => this.props.update(this.props.lista)}> Salvar </button>
+                        <button type="button" class="btn btn-info left-block buttonAdd" onClick={e => this.updateList()}> Salvar </button>
                     </div>
                     <a className="close" onClick={this.closeModal}>
                         &times;

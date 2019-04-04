@@ -18,11 +18,15 @@ export default class AlteraProdutoPopup extends Component{
         this.setState({ open: false })
     }
       
+    add(){
+        this.props.addUserInGroup()
+        this.closeModal()
+    }
     render(){
         return(
         <div>
             <button className="btn btn-primary btn-sm" onClick={this.openModal}>
-                <i className="fa fa-plus ml-2"></i>
+                <i className="fa fa-plus ml-2"></i> Novo usuário
             </button>
             <Popup
                 open={this.state.open}
@@ -31,11 +35,12 @@ export default class AlteraProdutoPopup extends Component{
                 <div className="popup">
                     <div className="header"> <h5>Adicionar Usuário</h5> </div>
                     <div className="content col-xs-4">
-                        <Input id="name" description="Nome da Lista" placeholder="Grupo de 5"
+                        <Input id="email" description="Email" placeholder="joao@gmail.com"
+                        name="email" value={this.props.email} onChange={e => this.props.updateField(e)}
                         ></Input>
                     </div>
                     <div className="actions">
-                        <button type="button" class="btn btn-info left-block buttonAdd" onClick={e => this.props.update(this.props.lista)}> Salvar </button>
+                        <button type="button" class="btn btn-info left-block buttonAdd" onClick={e => this.add()}> Salvar </button>
                     </div>
                     <a className="close" onClick={this.closeModal}>
                         &times;

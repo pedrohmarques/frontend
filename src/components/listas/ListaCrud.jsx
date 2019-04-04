@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Main from '../template/Main'
 import axios from 'axios'
 import $ from 'jquery'
-import {NotificationManager} from 'react-notifications';
+import {NotificationManager} from 'react-notifications'
 
 import NewGroup from './NewGroup'
 import NewList from './NewList'
@@ -31,12 +31,17 @@ export default class ListaCrud extends Component {
         this.updateField = this.updateField.bind(this)
         this.createGroup = this.createGroup.bind(this)
         this.createList = this.createList.bind(this)
+        this.getUpdateList = this.getUpdateList.bind(this)
+        this.getUpdateGroup = this.getUpdateGroup.bind(this)
+        this.getUpdateListInGroup =this.getUpdateListInGroup.bind(this)
     }
     
     componentWillMount(){
         const user = localStorage.getItem('USER')
         axios(`${listGroup}/users/${JSON.parse(user).id}/groups/`).then(resp=>{
             this.setState({ list: resp.data })
+        },error=>{
+            NotificationManager.error(error.response.data.message)
         })
     }
 
@@ -73,7 +78,6 @@ export default class ListaCrud extends Component {
                         <td>
                             <AlteraProdutoPopup 
                                 lista={lista}
-                                user={this.state.user}
                                 state={this}
                                 update={this.update}
                                 updateField={this.updateField}
@@ -105,9 +109,21 @@ export default class ListaCrud extends Component {
     getUpdateList(lista, add=true){
         var listUpdate = this.state.list
         for(var posicao in listUpdate){
-            listUpdate[posicao].listasDeCompras = listUpdate[posicao].listasDeCompras.filter(u => u.id !== lista.id)
+            listUpdate[posicao].listasDeCompras = listUpdate[posicao].listasDeCompras.filter(u => u.id == lista.id)
         }
         if(add) listUpdate.unshift(lista)
+        return listUpdate
+    }
+    
+    getUpdateListInGroup(group, lista, add=true){
+        var listUpdate = this.state.list
+        var pos = 0
+        for(var posicao in listUpdate){
+            if(listUpdate[posicao].id == group){
+                pos = posicao
+            }
+        }
+        if(add) listUpdate[pos].listasDeCompras.unshift(lista)
         return listUpdate
     }
 
@@ -125,18 +141,21 @@ export default class ListaCrud extends Component {
                 const list = this.getUpdateList(lista, false)
                 this.state.setState({list})
             }, error=>{
-                NotificationManager.error(error.responseJSON.message)
+                NotificationManager.error(error.response.data.message)
             })
     }
 
     update(lista){
-        const nome = {listName: this.user.nome}
-        axios.put(`${listGroup}/lists/${lista.id}`, JSON.stringify(nome)).
+        const nome = {
+            listName: this.state.state.user.nome
+        }
+        axios.put(`${listGroup}/lists/${lista.id}?listName=${nome.listName}`, '').
             then(resp => {
                 NotificationManager.success("Lista atualizada com sucesso!") 
-                // const listUpdate = this.getUpdateList(resp.data)
-                // this.setState({list: initialState.list, listUpdate})
-                return 'ok'
+                // const listUpdate = this.getUpdateList(resp.data, true)
+                // this.state.state.setState({list: listUpdate})
+            },error=>{
+                NotificationManager.error(error.response.data.message)
             })
     }
 
@@ -160,8 +179,10 @@ export default class ListaCrud extends Component {
         }
         $.post(`${listGroup}/lists/`, list).then(resp =>{
             NotificationManager.success("Lista criada com sucesso!")
-            const listUpdate = this.getUpdateList(resp)
+            const listUpdate = this.getUpdateListInGroup(groupId, resp)
             this.setState({listUpdate})
+        },error=>{
+            NotificationManager.error(error.response.data.message)
         })
     }
 

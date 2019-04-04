@@ -23,6 +23,11 @@ export default class NewList extends Component{
         })
       }
 
+      updateList(){
+        this.props.createList(this.state.selected)
+        this.closeModal()
+      }
+
       renderGroups(){
           return this.props.state.state.list.map(groups => {
             return(
@@ -43,20 +48,22 @@ export default class NewList extends Component{
                 <div className="popup">
                     <div className="header"> <h5>Cadastro de Lista</h5> </div>
                     <div className="content col-xs-4">
-                        <Input id="name" description="Nome do Grupo" placeholder="Grupo de 5"
+                        <Input id="name" description="Nome da Lista" placeholder="lista dos 5"
                             name="nome" value={this.props.state.state.user.nome}
                             onChange={e=>this.props.updateField(e)}
                         ></Input>
                         <div className="form-group">
+                            <label><h6>Selecione o Grupo</h6></label>
                             <select className="form-control" name="groupId"
                             value={this.state.selected} 
                             onChange={e => this.handleChange(e)}>
+                                <option></option>
                                 {this.renderGroups()}
                             </select>
                         </div>
                     </div>
                     <div className="actions">
-                        <button type="button" class="btn btn-info left-block buttonAdd" onClick={e => this.props.createList(this.state.selected)}> Salvar </button>
+                        <button type="button" class="btn btn-info left-block buttonAdd" onClick={e =>this.updateList()}> Salvar </button>
                     </div>
                     <a className="close" onClick={this.closeModal}>
                         &times;

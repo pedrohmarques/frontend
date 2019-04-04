@@ -22,7 +22,7 @@ export default class Login extends Component
         this.userLogin = this.userLogin.bind(this)
         this.updateField = this.updateField.bind(this)
         this.redirectCadastro = this.redirectCadastro.bind(this)
-    }
+}
 
     userLogin(){
         const user = this.state.user
@@ -35,7 +35,7 @@ export default class Login extends Component
                 }
                     
             },error=>{
-                NotificationManager.error(error.responseJSON.message);
+                NotificationManager.error(error.response.data.message)
             })
         }
     }

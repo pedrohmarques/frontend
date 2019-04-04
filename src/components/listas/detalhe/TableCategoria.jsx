@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import axios from 'axios'
 
-const categoriaURL = 'https://will-list.herokuapp.com/'
+const categoriaURL = 'https://will-list.herokuapp.com'
 const initialState = {
     categories: []
 }
@@ -16,7 +16,7 @@ export default class TableCategoria extends Component{
 
     componentWillMount(){
         const list = localStorage.getItem('listSelect')
-        axios(`${categoriaURL}/${JSON.parse(list).id}/categories`).then(
+        axios(`${categoriaURL}/lists/${JSON.parse(list).id}/categories`).then(
             resp => {
                 this.setState({ categories: resp.data })     
             }

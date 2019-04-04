@@ -17,6 +17,10 @@ export default class NewGroup extends Component{
       closeModal () {
         this.setState({ open: false })
       }
+      updateGroup(){
+        this.props.createGroup()
+        this.closeModal()
+      }
       
     render(){
         return(
@@ -36,7 +40,7 @@ export default class NewGroup extends Component{
                         ></Input>
                     </div>
                     <div className="actions">
-                        <button type="button" class="btn btn-info left-block buttonAdd" onClick={e => this.props.createGroup()}> Salvar </button>
+                        <button type="button" class="btn btn-info left-block buttonAdd" onClick={e => this.updateGroup()}> Salvar </button>
                     </div>
                     <a className="close" onClick={this.closeModal}>
                         &times;

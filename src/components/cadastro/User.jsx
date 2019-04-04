@@ -28,7 +28,7 @@ export default class User extends Component{
                     this.props.history.push('/')
                 }
             },error=>{
-                NotificationManager.error(error.responseJSON.message)
+                NotificationManager.error(error.response.data.message)
             })
         }
     }
