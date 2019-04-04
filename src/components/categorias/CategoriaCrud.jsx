@@ -9,12 +9,21 @@ const headerProps = {
 }
 
 const baseUrl = "https://will-list.herokuapp.com/"
-export default class CategoriaCrud extends Component {   
+export default class CategoriaCrud extends Component {
+    constructor(props){
+        super(props)
+        this.child = React.createRef();
+        this.listCategorias = this.listCategorias.bind(this)
+    }
+    listCategorias (){
+        this.child.current.listCategorias()
+    };   
+    
     render(){
         return(
             <Main {...headerProps}>
-                <FieldAdd baseUrl={baseUrl} classButton="btn btn-dark center-block" classIcon="fa fa-plus" iconContent="Nova Categoria"/>
-                <TableCategorias baseUrl={baseUrl}/>
+                <FieldAdd baseUrl={baseUrl} classButton="btn btn-dark center-block" classIcon="fa fa-plus" iconContent="Nova Categoria" listCategorias={this.listCategorias}/>
+                <TableCategorias baseUrl={baseUrl} ref={this.child}/>
             </Main>
         )
     }

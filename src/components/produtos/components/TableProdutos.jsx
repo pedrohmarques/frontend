@@ -2,8 +2,7 @@ import React, {Component} from 'react'
 import '../css/TableProdutos.css'
 import FieldEdit from  './FieldEdit'
 import axios from 'axios';
-
-const baseUrl = "https://will-list.herokuapp.com/";
+import {NotificationManager} from 'react-notifications';
 
 export default class TableProdutos extends React.Component{
     constructor(props) {
@@ -16,7 +15,7 @@ export default class TableProdutos extends React.Component{
       }
 
     listProdutos (){
-        axios.get(baseUrl+"categories/").then(function(callback){
+        axios.get(this.props.baseUrl+"categories/").then(function(callback){
             this.setState({data : callback.data})
         }.bind(this)).catch(function(response){
             console.log(response)
@@ -24,18 +23,20 @@ export default class TableProdutos extends React.Component{
      };
 
     deleteProduto(produto){
-        axios.delete(baseUrl+"products/"+produto.id).then(function(callback){
+        axios.delete(this.props.baseUrl+"products/"+produto.id).then(function(callback){
+            NotificationManager.warning('Produto excluido.','',2000)
             this.listProdutos();
         }.bind(this));
     };
 
     updateProduto(produto){
-        axios.put(this.props.baseUrl+"categories/"+ produto.id+'?nome='+produto.nome+'preco='+produto.preco+'idCategoria='+produto.idCategoria, {
+        axios.put(this.props.baseUrl+"products/"+ produto.id+'?nome='+produto.nome+'preco='+produto.preco+'idCategoria='+produto.idCategoria, {
                //nome: produto.nome
             //    preco: produto.preco,
             //    idCategoria : produto.idCategoria
         }).then(function(callback){
-            this.listCategorias()
+            NotificationManager.success('Produto atualizado.','',2000)
+            this.listProdutos()
         }.bind(this));
     };
 

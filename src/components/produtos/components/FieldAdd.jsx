@@ -4,7 +4,7 @@ import Input from "./Input"
 import InputImg from "./InputImg"
 import InputSelect from "./InputSelect"
 import axios from 'axios'
-import $ from 'jquery'
+import {NotificationManager} from 'react-notifications';
 import '../css/Input.css'
 
 export default class FieldAdd extends React.Component {
@@ -12,7 +12,7 @@ export default class FieldAdd extends React.Component {
       super(props)
       this.state = { 
         open: false,
-        produto : '',
+        nome: '',
         preco: '',
         idCategoria: ''
       }
@@ -27,20 +27,22 @@ export default class FieldAdd extends React.Component {
     closeModal () {
       this.setState({ open: false })
     }
-
-    changeState (type, value){
-      var self = this;
-      this.setState({[type]  : value});
+    
+    changeState(type,novoDado){
+      this.setState({
+          [type]: novoDado
+      })
     }
     saveProduto () {
-      // axios.post("https://will-list.herokuapp.com/products/",{
-      //     nome : this.state.produto,
-      //     preco : this.state.preco,
-      //     idCategoria : this.state.idCategoria
-      // }).then(function(callback){
-      //       console.log(callback)
-      // })
-      this.closeModal()
+      axios.post(this.props.baseUrl+'products/?nome='+this.state.nome+'&preco='+this.state.preco+'&idCategoria='+this.state.idCategoria,{
+          // nome : this.state.nome,
+          // preco : this.state.preco,
+          // idCategoria : this.state.idCategoria
+      }).then(function(callback){
+          this.closeModal()  
+          NotificationManager.success('Salvo com sucesso.','',2000)
+          this.props.listProdutos()
+      })
     }
 
     render() {
@@ -56,10 +58,9 @@ export default class FieldAdd extends React.Component {
                 <div className="header"> <h5>Produto</h5> </div>
                 <form method="POST" id="form">
                   <div className="form-group content col-xs-4">
-                      <InputImg id="imagem" description="Imagem"></InputImg>
-                      <Input id="preco" changeState={this.changeState} description="Preço" placeholder={this.props.preco}></Input>
-                      <Input id="produto" changeState={this.changeState} description="Nome" placeholder={this.props.produto}></Input>
-                      <InputSelect id="idCategoria" changeState={this.changeState} description="Categorias" getUrl="categories/" />
+                      <Input type="nome" description="Nome" placeholder={this.props.produto} changeState={this.changeState}></Input>
+                      <Input type="preco" description="Preço" placeholder={this.props.preco} changeState={this.changeState}></Input>
+                      <InputSelect type="idCategoria" description="Categorias" getUrl="categories/" changeState={this.changeState} />
                   </div>
                 </form>
                 <div className="actions">

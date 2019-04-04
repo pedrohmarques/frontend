@@ -2,6 +2,7 @@ import React from 'react'
 import Popup from "reactjs-popup";
 import Input from "./Input"
 import axios from 'axios'
+import {NotificationManager} from 'react-notifications';
 import '../css/Input.css'
 
 export default class FieldAdd extends React.Component {
@@ -13,14 +14,7 @@ export default class FieldAdd extends React.Component {
       this.saveCategoria = this.saveCategoria.bind(this)
       this.onChangeName = this.onChangeName.bind(this)
     }
-
-    listCategorias (){
-      axios.get(this.props.baseUrl+"categories/").then(function(callback){
-          this.setState({data : callback.data})
-      }.bind(this)).catch(function(response){
-          console.log(response)
-      });
-    };
+    
     openModal (){
       this.setState({ open: true })
     }
@@ -29,12 +23,11 @@ export default class FieldAdd extends React.Component {
     }
 
     saveCategoria () {
-      axios.post(this.props.baseUrl + 'categories/',
-      {
-          nome : this.state.categoria.nome
-      }).then(function(callback){
-         this.listCategorias()
-      });
+      axios.post(this.props.baseUrl + 'categories/?nome='+this.state.categoria.nome).then(function(callback){
+         this.closeModal()
+         NotificationManager.success('Salvo com sucesso.','',2000)
+         this.props.listCategorias()
+      }.bind(this));
       
     }
 

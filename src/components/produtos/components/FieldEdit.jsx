@@ -6,15 +6,17 @@ import InputSelect from "./InputSelect"
 import axios from 'axios'
 import '../css/Input.css'
 
-const url = "https://will-list.herokuapp.com/";
-
 export default class FieldEdit extends React.Component {
     constructor(props) {
       super(props)
-      this.state = { open: false, idCategoria: ''}
+      this.state = { 
+        open: false, 
+        nome : '',
+        preco: '',
+        idCategoria: ''
+      }
       this.openModal = this.openModal.bind(this)
       this.closeModal = this.closeModal.bind(this)
-      this.onChangeState = this.onChangeState.bind(this)
       this.changeState = this.changeState.bind(this)
     }
     openModal (){
@@ -28,12 +30,14 @@ export default class FieldEdit extends React.Component {
       this.setState({[type]  : value});
     }
 
-    onChangeState(type,novoNome){
-      this.setState({
-        produto:{
-          [type]: novoNome
-        }
+    updateProduto(){
+      this.props.updateProduto({
+        id: this.props.produto.id,
+        nome : this.state.nome,
+        preco : this.state.preco,
+        idCategoria : this.state.idCategoria
       })
+      this.closeModal()
     }
 
     render() {
@@ -48,9 +52,8 @@ export default class FieldEdit extends React.Component {
             <div className="popup">
                 <div className="header"> <h5>Produto</h5> </div>
                 <div className="form-group content col-xs-4">
-                    <InputImg id="imagem" description="Imagem"></InputImg>
-                    <Input type="nome" description="Nome" placeholder={this.props.produto.nome} onChangeState={this.onChangeState}></Input>
-                    <Input type="preco" description="Preço" placeholder={this.props.produto.preco} onChangeState={this.onChangeState}></Input>
+                    <Input type="nome" description="Nome" placeholder={this.props.produto.nome} changeState={this.changeState}></Input>
+                    <Input type="preco" description="Preço" placeholder={this.props.produto.preco} changeState={this.changeState}></Input>
                     <InputSelect type="idCategoria" changeState={this.changeState} description="Categorias" getUrl="categories/"/>
                 </div>
                 <div className="actions">

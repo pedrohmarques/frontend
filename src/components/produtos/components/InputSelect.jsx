@@ -20,11 +20,11 @@ export default class InputSelect extends Component{
 
     render(){
         return(
-        <div>
-            <label ><h6>{this.props.description}</h6></label>
+        <div >
+            <label className="mt-3 mb-0"><h6>{this.props.description}</h6></label>
             <select className="form-control" onChange={(e) => this.props.changeState(this.props.type, e.target.value)}>
                 {this.state.data.map(row =>(
-                    <option value={row.id}>{row.nome}</option>
+                    <option key={row.id} value={row.id}>{row.nome}</option>
                     )
                 )}
             </select>
