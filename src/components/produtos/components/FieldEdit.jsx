@@ -11,9 +11,11 @@ const url = "https://will-list.herokuapp.com/";
 export default class FieldEdit extends React.Component {
     constructor(props) {
       super(props)
-      this.state = { open: false }
+      this.state = { open: false, idCategoria: ''}
       this.openModal = this.openModal.bind(this)
       this.closeModal = this.closeModal.bind(this)
+      this.onChangeState = this.onChangeState.bind(this)
+      this.changeState = this.changeState.bind(this)
     }
     openModal (){
       this.setState({ open: true })
@@ -23,13 +25,15 @@ export default class FieldEdit extends React.Component {
     }
 
     changeState (type, value){
-      var self = this;
       this.setState({[type]  : value});
     }
 
-    saveProduto () {
-      //axios.post(url+"products"+)
-      this.closeModal()
+    onChangeState(type,novoNome){
+      this.setState({
+        produto:{
+          [type]: novoNome
+        }
+      })
     }
 
     render() {
@@ -45,9 +49,9 @@ export default class FieldEdit extends React.Component {
                 <div className="header"> <h5>Produto</h5> </div>
                 <div className="form-group content col-xs-4">
                     <InputImg id="imagem" description="Imagem"></InputImg>
-                    <Input id="produto" description="Nome" placeholder={this.props.produto.nome}></Input>
-                    <Input id="valor" description="Preço" placeholder={this.props.produto.preco}></Input>
-                    <InputSelect id="categoria" changeState={this.changeState} description="Categorias" getUrl="categories/"/>
+                    <Input type="nome" description="Nome" placeholder={this.props.produto.nome} onChangeState={this.onChangeState}></Input>
+                    <Input type="preco" description="Preço" placeholder={this.props.produto.preco} onChangeState={this.onChangeState}></Input>
+                    <InputSelect type="idCategoria" changeState={this.changeState} description="Categorias" getUrl="categories/"/>
                 </div>
                 <div className="actions">
                     <button type="button" className="btn btn-info left-block buttonAdd" onClick={this.closeModal}> Salvar </button>

@@ -1,20 +1,20 @@
 import React, {Component} from 'react'
-//import axios from 'axios'
 import '../css/TableCategorias.css'
 import FieldEdit from  './FieldEdit'
 import axios from 'axios';
-
-const baseUrl = "https://will-list.herokuapp.com/";
+import {NotificationManager} from 'react-notifications';
 
 export default class TableCategorias extends Component{
     constructor(props) {
         super(props)
         this.state = { data:[]}
+        this.updateCategoria = this.updateCategoria.bind(this)
+        this.listCategorias = this.listCategorias.bind(this)
         this.listCategorias()
-      }
+     }
 
     listCategorias (){
-        axios.get(baseUrl+"categories/").then(function(callback){
+        axios.get(this.props.baseUrl+"categories/").then(function(callback){
             this.setState({data : callback.data})
         }.bind(this)).catch(function(response){
             console.log(response)
@@ -22,10 +22,24 @@ export default class TableCategorias extends Component{
     };
 
     deleteCategoria(categoria){
-        // axios.post(url+"categories/"+categoria.id).then(function(callback){
-        //     this.forceUpdate();
-        // });
+            axios.delete(this.props.baseUrl + "categories/" + categoria.id,
+            {
+                headers: {'Access-Control-Allow-Origin': '*'}
+            }).then(function(callback){
+                NotificationManager.warning('Categoria Excluída.')
+                this.listCategorias()
+            }.bind(this));
     };
+
+    updateCategoria(categoria){
+        axios.put(this.props.baseUrl+"categories/"+ categoria.id+'?nome='+categoria.nome, {
+               //nome: categoria.nome
+        }).then(function(callback){
+            NotificationManager.success('Categoria Atualizada.','',2200)
+            this.listCategorias()
+        }.bind(this));
+    };
+    
     renderRows(){
         return this.state.data.map(categoria=>(
                 <tr key={categoria.id}>
@@ -33,7 +47,7 @@ export default class TableCategorias extends Component{
                     <td></td>
                     <td></td>
                     <td className="text-center">
-                    <FieldEdit categoria={categoria}/>
+                    <FieldEdit categoria={categoria} updateCategoria = {this.updateCategoria}/>
                     <button type="button" className="btn btn-warning d-inline ml-2" onClick={(e) => this.deleteCategoria(categoria, e)}> <i className="fa fa-trash"/></button>
                     </td>
                 </tr>

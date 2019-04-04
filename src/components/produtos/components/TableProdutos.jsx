@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-//import axios from 'axios'
 import '../css/TableProdutos.css'
 import FieldEdit from  './FieldEdit'
 import axios from 'axios';
@@ -12,11 +11,12 @@ export default class TableProdutos extends React.Component{
         this.state = {
             data : []
         }
+        this.listProdutos =this.listProdutos.bind(this)
         this.listProdutos()
       }
 
     listProdutos (){
-        axios.get(baseUrl+"categories/2").then(function(callback){
+        axios.get(baseUrl+"categories/").then(function(callback){
             this.setState({data : callback.data})
         }.bind(this)).catch(function(response){
             console.log(response)
@@ -24,21 +24,36 @@ export default class TableProdutos extends React.Component{
      };
 
     deleteProduto(produto){
-        // axios.post(url+"products/"+produto.id).then(function(callback){
-        //     this.forceUpdate();
-        // }.bind(this));
+        axios.delete(baseUrl+"products/"+produto.id).then(function(callback){
+            this.listProdutos();
+        }.bind(this));
     };
+
+    updateProduto(produto){
+        axios.put(this.props.baseUrl+"categories/"+ produto.id+'?nome='+produto.nome+'preco='+produto.preco+'idCategoria='+produto.idCategoria, {
+               //nome: produto.nome
+            //    preco: produto.preco,
+            //    idCategoria : produto.idCategoria
+        }).then(function(callback){
+            this.listCategorias()
+        }.bind(this));
+    };
+
     renderRows(){
-        return this.state.data.map(produto=>(
-            <tr key={produto.id}>
-                <td>{produto.nome}</td>
-                <td>{produto.preco}</td>
-                <td>{produto.categoria.nome}</td>
-                <td className="text-center">
-                <FieldEdit produto={produto}/>
-                <button type="button" className="btn btn-warning d-inline ml-2" onClick={(e) => this.deleteProduto(produto, e)}> <i className="fa fa-trash"/></button>
-                </td>
-            </tr>
+        return this.state.data.map(categoria=>(
+                categoria.produtos.map(produto=>(
+                    <tr key={produto.id}>
+                        <td>{produto.nome}</td>
+                        <td>{produto.preco}</td>
+                        <td>{categoria.nome}</td>
+                        <td className="text-center">
+                        <FieldEdit produto={produto} categoria={categoria}/>
+                        <button type="button" className="btn btn-warning d-inline ml-2" onClick={(e) => this.deleteProduto(produto, e)}> <i className="fa fa-trash"/></button>
+                        </td>
+                    </tr>
+                )
+            )
+           
         )
         )
     }

@@ -11,7 +11,16 @@ export default class FieldAdd extends React.Component {
       this.openModal = this.openModal.bind(this)
       this.closeModal = this.closeModal.bind(this)
       this.saveCategoria = this.saveCategoria.bind(this)
+      this.onChangeName = this.onChangeName.bind(this)
     }
+
+    listCategorias (){
+      axios.get(this.props.baseUrl+"categories/").then(function(callback){
+          this.setState({data : callback.data})
+      }.bind(this)).catch(function(response){
+          console.log(response)
+      });
+    };
     openModal (){
       this.setState({ open: true })
     }
@@ -20,8 +29,21 @@ export default class FieldAdd extends React.Component {
     }
 
     saveCategoria () {
-      // axios.post()
-      this.closeModal()
+      axios.post(this.props.baseUrl + 'categories/',
+      {
+          nome : this.state.categoria.nome
+      }).then(function(callback){
+         this.listCategorias()
+      });
+      
+    }
+
+    onChangeName(type,novoNome){
+      this.setState({
+        categoria:{
+          [type]: novoNome
+        }
+      })
     }
 
     render() {
@@ -36,7 +58,7 @@ export default class FieldAdd extends React.Component {
             <div className="popup">
                 <div className="header"> <h5>Categoria</h5> </div>
                 <div className="form-group content col-xs-4">
-                    <Input id="categoria" description="Nome" placeholder={this.props.nome}></Input>
+                    <Input type="nome" description="Nome" placeholder={this.props.nome} onChangeName={this.onChangeName}></Input>
                 </div>
                 <div className="actions">
                     <button type="button" className="btn btn-info left-block buttonAdd" onClick={this.saveCategoria}> Salvar </button>
