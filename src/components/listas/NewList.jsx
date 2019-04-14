@@ -63,7 +63,7 @@ export default class NewList extends Component{
                         </div>
                     </div>
                     <div className="actions">
-                        <button type="button" class="btn btn-info left-block buttonAdd" onClick={e =>this.updateList()}> Salvar </button>
+                        <button type="button" className="btn btn-info left-block buttonAdd" onClick={e =>this.updateList()}> Salvar </button>
                     </div>
                     <a className="close" onClick={this.closeModal}>
                         &times;

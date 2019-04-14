@@ -9,6 +9,7 @@ import ListaCrud from '../components/listas/ListaCrud'
 import CategoriaCrud from '../components/categorias/CategoriaCrud'
 import ProdutoCrud from '../components/produtos/ProdutoCrud'
 import DetalheLista from '../components/listas/detalhe/DetalheLista'
+import Groups from '../components/grupo/group'
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route
@@ -33,6 +34,7 @@ const Routes = () => {
         <PrivateRoute exact path='/categories' component={CategoriaCrud}></PrivateRoute>
         <PrivateRoute exact path='/products' component={ProdutoCrud}></PrivateRoute>
         <PrivateRoute exact path='/viewlist' component={DetalheLista}></PrivateRoute>
+        <PrivateRoute exact path='/groups' component={Groups}></PrivateRoute>
         <Redirect from='*' to='/home'></Redirect>
     </Switch>
     )

@@ -36,8 +36,8 @@ export default props =>
             </div>
         </div>
         <div className="col-12 d-flex justify-content-end pt-20">
-            <button className="btn btn-primary" onClick={e => props.backLogin(e)}>Voltar</button>
-            <button className="btn btn-secondary ml-2" onClick={e => props.cadastro(e)}>Cadastrar</button>
+            <button className="btn btn-secondary" onClick={e => props.backLogin(e)}>Voltar</button>
+            <button className="btn btn-primary ml-2" onClick={e => props.cadastro(e)}>Cadastrar</button>
         </div>
     </div>
 </div>

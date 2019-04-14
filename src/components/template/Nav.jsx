@@ -9,6 +9,9 @@ export default props =>
             <Link to="/list">
                 <i className="fa fa-list-alt"></i> Listas
             </Link>
+            <Link to='/groups'>
+                <i className="fa fa-list-alt"></i> Grupos
+            </Link>
             <Link to="/categories">
                 <i className="fa fa-folder"></i> Categorias
             </Link>

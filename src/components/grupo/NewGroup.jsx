@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import Popup from "reactjs-popup";
-import Input from "./input/Input"
-import InputImg from "./input/InputImg"
-import './input/Input.css'
+import Input from "../listas/input/Input"
+import '../listas/input/Input.css'
 
 export default class NewGroup extends Component{
     constructor(props) {
@@ -35,12 +34,12 @@ export default class NewGroup extends Component{
                     <div className="header"> <h5>Cadastro de Grupo</h5> </div>
                     <div className="content col-xs-4">
                         <Input id="name" description="Nome do Grupo" placeholder="Grupo de 5"
-                            name="nome" value={this.props.state.state.user.nome}
+                            name="nome" value={this.props.dadosGrupo.nome}
                             onChange={e=>this.props.updateField(e)}
                         ></Input>
                     </div>
                     <div className="actions">
-                        <button type="button" class="btn btn-info left-block buttonAdd" onClick={e => this.updateGroup()}> Salvar </button>
+                        <button type="button" className="btn btn-info left-block buttonAdd" onClick={e => this.updateGroup()}> Salvar </button>
                     </div>
                     <a className="close" onClick={this.closeModal}>
                         &times;

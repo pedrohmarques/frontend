@@ -4,7 +4,6 @@ import axios from 'axios'
 import $ from 'jquery'
 import {NotificationManager} from 'react-notifications'
 
-import NewGroup from './NewGroup'
 import NewList from './NewList'
 import AlteraProdutoPopup from './AlteraProdutoPopup'
 import './ListaCrud.css'
@@ -29,10 +28,8 @@ export default class ListaCrud extends Component {
         this.renderRows = this.renderRows.bind(this)
         this.redirectView = this.redirectView.bind(this)
         this.updateField = this.updateField.bind(this)
-        this.createGroup = this.createGroup.bind(this)
         this.createList = this.createList.bind(this)
         this.getUpdateList = this.getUpdateList.bind(this)
-        this.getUpdateGroup = this.getUpdateGroup.bind(this)
         this.getUpdateListInGroup =this.getUpdateListInGroup.bind(this)
     }
     
@@ -127,13 +124,6 @@ export default class ListaCrud extends Component {
         return listUpdate
     }
 
-    getUpdateGroup(group, add=true){
-        var groupUpdate = this.state.list
-        
-        if(add) groupUpdate.unshift(group)
-        return groupUpdate
-    }
-
     delete(lista){
         axios.delete(`${listGroup}/lists/${lista.id}`).
             then(resp =>{
@@ -159,19 +149,6 @@ export default class ListaCrud extends Component {
             })
     }
 
-    createGroup(){
-        const storage = localStorage.getItem('USER')
-        const group = {
-            idCriador: JSON.parse(storage).id,
-            nome: this.state.user.nome
-        }
-        $.post(`${listGroup}/groups/`, group).then(resp =>{
-            NotificationManager.success("Grupo criado com sucesso!")
-            const groupUpdate = this.getUpdateGroup(resp)
-            this.state.setState({groupUpdate})
-        })
-    }
-
     createList(groupId){
         const list = {
             groupId: groupId,
@@ -189,11 +166,6 @@ export default class ListaCrud extends Component {
     render(){
         return(
             <Main {...headerProps}>
-               <NewGroup
-                    state={this}
-                    updateField={this.updateField}
-                    createGroup={this.createGroup}
-                ></NewGroup>
                 <NewList
                     state={this}
                     updateField={this.updateField}
