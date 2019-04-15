@@ -29,7 +29,7 @@ export default class NewList extends Component{
       }
 
       renderGroups(){
-          return this.props.state.state.list.map(groups => {
+          return this.props.list.map(groups => {
             return(
                 <option value={groups.id}>{groups.nome}</option>
             )
@@ -49,7 +49,7 @@ export default class NewList extends Component{
                     <div className="header"> <h5>Cadastro de Lista</h5> </div>
                     <div className="content col-xs-4">
                         <Input id="name" description="Nome da Lista" placeholder="lista dos 5"
-                            name="nome" value={this.props.state.state.user.nome}
+                            name="nome" value={this.props.dadoLista.nome}
                             onChange={e=>this.props.updateField(e)}
                         ></Input>
                         <div className="form-group">

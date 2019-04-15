@@ -44,7 +44,7 @@ export default class AlteraProdutoPopup extends Component{
                     <div className="header"> <h5>Cadastro de Lista</h5> </div>
                     <div className="content col-xs-4">
                         <Input id="name" description="Nome da Lista" placeholder="Grupo de 5" name="nome"
-                                value={this.props.state.state.user.nome}
+                                value={this.props.dadoLista.nome}
                                 onChange={e=>this.props.updateField(e)}
                         ></Input>
                     </div>

@@ -1,9 +1,14 @@
 import React, {Component} from 'react'
 import axios from 'axios'
 
-const categoriaURL = 'https://will-list.herokuapp.com'
+import FieldAdd from './FieldAddProduto'
+import { NotificationManager } from 'react-notifications';
+
+const URL = 'https://will-list.herokuapp.com'
 const initialState = {
-    categories: []
+
+    categories: [],
+    products: []
 }
 export default class TableCategoria extends Component{
 
@@ -12,17 +17,54 @@ export default class TableCategoria extends Component{
         this.state = {...initialState}
         this.componentWillMount = this.componentWillMount.bind(this)
         this.renderTable = this.renderTable.bind(this)
+        this.createProductInList = this.createProductInList.bind(this)
     }
 
     componentWillMount(){
         const list = localStorage.getItem('listSelect')
-        axios(`${categoriaURL}/lists/${JSON.parse(list).id}/categories`).then(
+        axios(`${URL}/lists/${JSON.parse(list).id}/categories`).then(
             resp => {
                 this.setState({ categories: resp.data })     
             }
         )
     }
-    
+
+    createProductInList(productId){
+        const listSelect = localStorage.getItem('listSelect')
+        axios.put(`${URL}/lists/${JSON.parse(listSelect).id}/products/${productId}`).then(resp => {
+            NotificationManager.success('Produto adicionado com sucesso!')
+        },error => {
+            NotificationManager.error(error.response.data.message)
+        })
+    }
+
+    removeProductList(productId){
+        const listSelect = localStorage.getItem('listSelect')
+        axios.delete(`${URL}/lists/${JSON.parse(listSelect).id}/products/${productId}`).then(resp=>{
+            NotificationManager.success('Deletado com sucesso!')
+            // const categoriesUpdate = resp.data
+            // this.setState({categories: categoriesUpdate})
+        },error => {
+            NotificationManager.error(error.response.data.message)
+        })
+    }
+
+    renderProduct(produtos){
+        return produtos.map(produto => {
+            return(
+                <tr key={produto.id}>
+                    <td>{produto.nome}</td>
+                    <td>{produto.preco}</td>
+                    <td>
+                        <button className="btn btn-danger" onClick={e => this.removeProductList(produto.id)}>
+                            <i className="fa fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            )
+        })
+    }
+
     renderTable(){
         return this.state.categories.map(categoria =>{
             return(
@@ -35,15 +77,7 @@ export default class TableCategoria extends Component{
                         </tr>
                     </thead>
                     <tbody>
-                        <tr key={categoria.produtos.id}>
-                            <td>{categoria.produtos.nome}</td>
-                            <td>{categoria.produtos.preco}</td>
-                            <td>
-                                <button className="btn btn-danger" onClick={e=>this.props.redirectView(this.props.lista, this.props.grupo)}>
-                                    <i className="fa fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
+                        {this.renderProduct(categoria.produtos)}
                     </tbody>
                 </table>
             )
@@ -53,6 +87,7 @@ export default class TableCategoria extends Component{
     render(){
         return(
            <div>
+               <FieldAdd URL={URL} createProductInList={this.createProductInList}></FieldAdd>
                {this.renderTable()}
            </div>
         )

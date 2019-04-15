@@ -84,14 +84,23 @@ export default class Group extends Component{
             NotificationManager.success("Grupo criado com sucesso!")
             const groupUpdate = this.getUpdateGroup(resp)
             this.setState({groups: groupUpdate})
+        },error =>{
+            NotificationManager.error(error.response.data.message)
         })
     }
 
     deleteGroup(groupId){
-        axios.delete(`${url}/groups/${groupId}`).then(resp => {
+        const user = localStorage.getItem('USER')
+        const del = {
+            eraserUserId: JSON.parse(user).id 
+        }
+        
+        axios.delete(`${url}/groups/${groupId}`, del).then(resp => {
             NotificationManager.success('Deletado com sucesso!')
             const groupUpdate = this.getUpdateGroup(resp.data, false)
             this.setState({groups: groupUpdate})
+        },error =>{
+            NotificationManager.error(error.response.data.message)
         })
     }
 

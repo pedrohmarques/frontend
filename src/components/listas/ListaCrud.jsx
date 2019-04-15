@@ -15,7 +15,7 @@ const headerProps = {
 
 const listGroup = 'https://will-list.herokuapp.com'
 const initialState = {
-    user: {nome: "",},
+    dadoLista: {nome: "",},
     list: []
 }
 
@@ -43,9 +43,9 @@ export default class ListaCrud extends Component {
     }
 
     updateField(event){
-        const user = {...this.state.user}
-        user[event.target.name] = event.target.value
-        this.setState({user})
+        const dados = {...this.state.dadoLista}
+        dados[event.target.name] = event.target.value
+        this.setState({dadoLista: dados})
     }
 
     renderList(){
@@ -75,7 +75,7 @@ export default class ListaCrud extends Component {
                         <td>
                             <AlteraProdutoPopup 
                                 lista={lista}
-                                state={this}
+                                dadoLista={this.state.dadoLista}
                                 update={this.update}
                                 updateField={this.updateField}
                                 delete = {this.delete}
@@ -137,7 +137,7 @@ export default class ListaCrud extends Component {
 
     update(lista){
         const nome = {
-            listName: this.state.state.user.nome
+            listName: this.state.dadoLista.nome
         }
         axios.put(`${listGroup}/lists/${lista.id}?listName=${nome.listName}`, '').
             then(resp => {
@@ -152,12 +152,12 @@ export default class ListaCrud extends Component {
     createList(groupId){
         const list = {
             groupId: groupId,
-            nome: this.state.user.nome
+            nome: this.state.dadoLista.nome
         }
         $.post(`${listGroup}/lists/`, list).then(resp =>{
             NotificationManager.success("Lista criada com sucesso!")
             const listUpdate = this.getUpdateListInGroup(groupId, resp)
-            this.setState({listUpdate})
+            this.setState({list: listUpdate})
         },error=>{
             NotificationManager.error(error.response.data.message)
         })
@@ -167,7 +167,8 @@ export default class ListaCrud extends Component {
         return(
             <Main {...headerProps}>
                 <NewList
-                    state={this}
+                    dadoLista={this.state.dadoLista}
+                    list = {this.state.list}
                     updateField={this.updateField}
                     createList={this.createList}
                 ></NewList>

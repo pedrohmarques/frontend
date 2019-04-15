@@ -40,7 +40,7 @@ export default class AlteraProdutoPopup extends Component{
                         ></Input>
                     </div>
                     <div className="actions">
-                        <button type="button" class="btn btn-info left-block buttonAdd" onClick={e => this.add()}> Salvar </button>
+                        <button type="button" className="btn btn-info left-block buttonAdd" onClick={e => this.add()}> Salvar </button>
                     </div>
                     <a className="close" onClick={this.closeModal}>
                         &times;
