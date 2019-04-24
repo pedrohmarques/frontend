@@ -88,7 +88,7 @@ export default class Lista extends Component{
                     <button className="btn btn-danger" onClick={e => this.removeUserGroup(id)}>
                         <i className="fa fa-trash"></i>
                     </button>
-                    <button className="btn btn-warning ml-2" onClick={e => this.toggleUserAdmin(id, admin)}>
+                    <button className="btn btn-danger ml-2" onClick={e => this.toggleUserAdmin(id, admin)}>
                         <i className="fa fa-star"></i>
                     </button>
                 </td>
