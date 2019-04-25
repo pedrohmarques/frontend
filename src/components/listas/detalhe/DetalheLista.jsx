@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import Main from '../../template/Main'
 
 import TableCategoria from './TableCategoria'
+import Comentario from '../comentarios/Comentario'
 import Lista from './Lista'
 
 
@@ -23,6 +24,7 @@ export default class DetalheLista extends Component{
         return(
             <Main {...this.state.header}>
                 <Lista></Lista>
+                <Comentario></Comentario>
                 <TableCategoria></TableCategoria>
             </Main>
         )
