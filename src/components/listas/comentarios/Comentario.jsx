@@ -1,9 +1,14 @@
 import React, {Component} from 'react'
 import axios from 'axios'
-import { NotificationManager } from 'react-notifications';  
+import { NotificationManager } from 'react-notifications'; 
+
+import Field from './FieldComent'
 
 const initialState = {
-    listComentaries: []
+    listComentaries: [],
+    comentarios: {
+        comment: ""
+    }
 }
 
 const url = 'https://will-list.herokuapp.com'
@@ -15,6 +20,8 @@ export default class Comentario extends Component{
         this.componentWillMount = this.componentWillMount.bind(this)
         this.removeComment = this.removeComment.bind(this)
         this.addComment = this.addComment.bind(this)
+        this.renderRow = this.renderRow.bind(this)
+        this.updateField = this.updateField.bind(this)
     }
 
     componentWillMount(){
@@ -39,11 +46,11 @@ export default class Comentario extends Component{
         })
     }
 
-    addComment(comment){
+    addComment(){
         const list = localStorage.getItem('listSelect')
         const user = localStorage.getItem('USER')
 
-        axios(`${url}/lists/${JSON.parse(list).id}/comments?userId=${JSON.parse(user).id}&comment=${comment}`)
+        axios(`${url}/lists/${JSON.parse(list).id}/comments?userId=${JSON.parse(user).id}&comment=${this.state.comentarios.comment}`)
         .then(resp=>{
             NotificationManager.success('Comentario adicionado com sucesso!')
         },error=>{
@@ -51,11 +58,42 @@ export default class Comentario extends Component{
         })
     }
 
+    updateField(event){
+        const dados = {...this.state.comentarios}
+        dados[event.target.name] = event.target.value
+        this.setState({comentarios: dados})
+    }
+
+    renderRow(){
+        return this.state.listComentaries.map(comentario =>{
+            return(
+                <tr key={comentario.comment.id}>
+                    <td>{comentario.user.nome}</td>
+                    <td>{comentario.comment.comentario}</td>
+                </tr>
+            )
+        }) 
+    }
     render(){
         return(
-            <div>
-                
-            </div>
+            <table className="table">
+                <thead className="thead-dark">
+                    <tr>
+                        <th scope="col">Usuário</th>
+                        <th scope="col">Comentário</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {this.renderRow()}
+                </tbody>
+                <tfoot>
+                    <Field
+                        comment = {this.state.comentarios.comment}
+                        updateField={this.updateField}
+                        addComment={this.addComment}
+                    ></Field>
+                </tfoot>
+            </table>
         )
     }
 }
