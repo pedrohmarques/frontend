@@ -33,6 +33,9 @@ export default class TableCategoria extends Component{
         const listSelect = localStorage.getItem('listSelect')
         axios.put(`${URL}/lists/${JSON.parse(listSelect).id}/products/${productId}`).then(resp => {
             NotificationManager.success('Produto adicionado com sucesso!')
+            setTimeout(function(){
+                window.location.reload()
+            }, 1000)
         },error => {
             NotificationManager.error(error.response.data.message)
         })
@@ -42,8 +45,9 @@ export default class TableCategoria extends Component{
         const listSelect = localStorage.getItem('listSelect')
         axios.delete(`${URL}/lists/${JSON.parse(listSelect).id}/products/${productId}`).then(resp=>{
             NotificationManager.success('Deletado com sucesso!')
-            // const categoriesUpdate = resp.data
-            // this.setState({categories: categoriesUpdate})
+            setTimeout(function(){
+                window.location.reload()
+            }, 1000)
         },error => {
             NotificationManager.error(error.response.data.message)
         })

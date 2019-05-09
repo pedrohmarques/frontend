@@ -3,6 +3,7 @@ import axios from 'axios'
 import { NotificationManager } from 'react-notifications'; 
 
 import Field from './FieldComent'
+import './Comentario.css'
 
 const initialState = {
     listComentaries: [],
@@ -53,6 +54,9 @@ export default class Comentario extends Component{
         axios(`${url}/lists/${JSON.parse(list).id}/comments?userId=${JSON.parse(user).id}&comment=${this.state.comentarios.comment}`)
         .then(resp=>{
             NotificationManager.success('Comentario adicionado com sucesso!')
+            setTimeout(function(){
+                window.location.reload()
+            }, 1000)
         },error=>{
             NotificationManager.error(error.response.data.message)
         })
@@ -67,33 +71,29 @@ export default class Comentario extends Component{
     renderRow(){
         return this.state.listComentaries.map(comentario =>{
             return(
-                <tr key={comentario.comment.id}>
-                    <td>{comentario.user.nome}</td>
-                    <td>{comentario.comment.comentario}</td>
-                </tr>
+                <div>
+                    <label>{comentario.user.nome}:</label>
+                    <label>{comentario.comment.comentario}</label>
+                </div>
+                
             )
         }) 
     }
     render(){
         return(
-            <table className="table">
-                <thead className="thead-dark">
-                    <tr>
-                        <th scope="col">Usuário</th>
-                        <th scope="col">Comentário</th>
-                    </tr>
-                </thead>
-                <tbody>
+            <div className='comentarios'>
+                <div className='content'>
                     {this.renderRow()}
-                </tbody>
-                <tfoot>
-                    <Field
-                        comment = {this.state.comentarios.comment}
-                        updateField={this.updateField}
-                        addComment={this.addComment}
-                    ></Field>
-                </tfoot>
-            </table>
+                </div>
+                <div className='button-comment'>
+                <Field
+                    comment = {this.state.comentarios.comment}
+                    updateField={this.updateField}
+                    addComment={this.addComment}
+                ></Field>
+                </div>
+            </div>
+            
         )
     }
 }
