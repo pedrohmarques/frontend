@@ -45,7 +45,7 @@ export default class FieldAdd extends React.Component {
           NotificationManager.success('Salvo com sucesso.','',2000)
           this.props.listProdutos()
       }.bind(this)).catch(function(response){
-          NotificationManager.warning(response.message,'',2000)
+          NotificationManager.error(response.response.data.message,'',2000)
       })
     }
 

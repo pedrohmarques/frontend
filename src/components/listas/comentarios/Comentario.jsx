@@ -27,7 +27,7 @@ export default class Comentario extends Component{
 
     componentWillMount(){
         const list = localStorage.getItem('listSelect')
-        axios(`${url}/lists/${JSON.parse(list).id}/comments`).then(resp=>{
+        axios(`${url}/lists/${JSON.parse(list).id}/comments/`).then(resp=>{
             this.setState({ listComentaries: resp.data })
         },error=>{
             NotificationManager.error(error.response.data.message)

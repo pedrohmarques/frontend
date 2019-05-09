@@ -26,9 +26,9 @@ export default class AlteraProdutoPopup extends Component{
     render(){
         return(
         <div>
-            <button className="btn btn-warning" onClick={this.openModal}>
+            {/* <button className="btn btn-warning" onClick={this.openModal}>
                 <i className="fa fa-pencil"></i>
-            </button>
+            </button> */}
             <button className="btn btn-danger ml-2" onClick={e => this.props.delete(this.props.lista)}>
                 <i className="fa fa-trash"></i>
             </button>
