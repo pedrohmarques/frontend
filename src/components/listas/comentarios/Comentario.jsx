@@ -27,7 +27,7 @@ export default class Comentario extends Component{
 
     componentWillMount(){
         const list = localStorage.getItem('listSelect')
-        axios(`${url}/lists/${JSON.parse(list).id}/comments/`).then(resp=>{
+        axios(`${url}/lists/${JSON.parse(list).id}/comments`).then(resp=>{
             this.setState({ listComentaries: resp.data })
         },error=>{
             NotificationManager.error(error.response.data.message)
@@ -51,7 +51,7 @@ export default class Comentario extends Component{
         const list = localStorage.getItem('listSelect')
         const user = localStorage.getItem('USER')
 
-        axios(`${url}/lists/${JSON.parse(list).id}/comments?userId=${JSON.parse(user).id}&comment=${this.state.comentarios.comment}`)
+        axios.put(`${url}/lists/${JSON.parse(list).id}/comments?userId=${JSON.parse(user).id}&comment=${this.state.comentarios.comment}`, '')
         .then(resp=>{
             NotificationManager.success('Comentario adicionado com sucesso!')
             setTimeout(function(){

@@ -141,9 +141,7 @@ export default class ListaCrud extends Component {
         }
         axios.put(`${listGroup}/lists/${lista.id}?listName=${nome.listName}`, '').
             then(resp => {
-                NotificationManager.success("Lista atualizada com sucesso!") 
-                // const listUpdate = this.getUpdateList(resp.data, true)
-                // this.state.state.setState({list: listUpdate})
+                NotificationManager.success("Lista atualizada com sucesso!")
             },error=>{
                 NotificationManager.error(error.response.data.message)
             })
