@@ -53,8 +53,8 @@ export default class FieldEdit extends React.Component {
             <div className="popup">
                 <div className="header"> <h5>Produto</h5> </div>
                 <div className="form-group content col-xs-4">
-                    <Input type="nome" description="Nome" placeholder={this.props.produto.nome} changeState={this.changeState}></Input>
-                    <Input type="preco" description="Preço" placeholder={this.props.produto.preco} changeState={this.changeState}></Input>
+                    <Input type="text" chave="nome" description="Nome" placeholder={this.props.produto.nome} changeState={this.changeState}></Input>
+                    <Input type="number" chave="nome" description="Preço" placeholder={this.props.produto.preco} changeState={this.changeState}></Input>
                     <InputSelect type="idCategoria" changeState={this.changeState} description="Categorias" getUrl="categories/"/>
                 </div>
                 <div className="actions">

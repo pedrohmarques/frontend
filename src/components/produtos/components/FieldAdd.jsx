@@ -62,8 +62,8 @@ export default class FieldAdd extends React.Component {
                 <div className="header"> <h5>Produto</h5> </div>
                 <form method="POST" id="form">
                   <div className="form-group content col-xs-4">
-                      <Input type="nome" description="Nome" placeholder={this.props.produto} changeState={this.changeState}></Input>
-                      <Input type="preco" description="Preço" placeholder={this.props.preco} changeState={this.changeState}></Input>
+                      <Input type="text" chave="nome" description="Nome" placeholder={this.props.produto} changeState={this.changeState}></Input>
+                      <Input type="number" chave="preco" description="Preço" placeholder={this.props.preco} changeState={this.changeState}></Input>
                       <InputSelect type="idCategoria" description="Categorias" getUrl="categories/" changeState={this.changeState} />
                   </div>
                 </form>
