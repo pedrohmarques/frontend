@@ -1,0 +1,18 @@
+# How Developers Choose Names
+
+D. Feitelson; A. Mizrahi; N. Noy; A. Ben Shabat; O. Eliyahu and R. Sheffer. "How Developers Choose Names" in _IEE Transactions on Software Engineering_, Feb. 2020. doi: [https://doi.org/10.1109/TSE.2020.2976920](https://doi.org/10.1109/TSE.2020.2976920)
+
+## 1. Fichamento de Conteúdo
+Os nomes para as variáveis e funções é algo importante para a documentação e para compreensão de um programa. Um dos motivos por qual a nomenclatura é problemática é o uso de uma linguagem ambígua, por exemplo, sinônimos, polissemia e homônimos. Para isso, o artigo busca mostrar como os nomes são escolhidos, e se o processo de escolha de nomes pode ser melhorada. Para investigar essas questões eles conduziram uma sequencia de experimentos, utilizando um total de 334 entrevistados. No primeiro experimento foi verificado a nomeação espontânea com base nas inclinações de cada sujeito. Baseado no resultado deste experimento foi desenvolvido três passos: 1) seleção dos conceitos incluindo os nomes; 2) escolha das palavras que representam cada conceito; 3) criação de um nome para essas palavras. No segundo experimento foi verificado quais nomes foram gerados por tipos de assuntos, utilizando o mesmos cenário do primeiro experimento. Para descobrir como os desenvolvedores escolhem os nomes, foi feita um entrevista com desenvolvedores profissionais e estudantes da ciência da computação, para ver como eles escolhem os nomes em vários tipo de cenário, e como eles interpretam os nomes dados. Para checar as possibilidades efetivas de usar nomenclaturas, foi realizada um replicação do primeiro experimento, com a diferença que os assuntos que são introduzidos pela primeira vez no modelo e pediu para usa-los ao escolher nomes. Os resultados foram que as escolhas das palavras podem ser fortemente afetadas pelo texto usado em um determinado cenário, mostrando a importância de utilizar um vocabulário consistente. Foi visto que a escolha do nome não prejudica na capacidade de compreensão. Mas existe casos em que os nomes são mal interpretados e uma maneira de prevenir isso proposta pelo autor seria adicionar o _code reviews_. No entanto, foi reparado que programadores possuem tendências de escolher nomes mais longos.
+
+## 2. Fichamento Bibliográfico
+* _Polysemy_ (Polissemia) é o fato de uma determinada palavra ou expressão adquirir um novo sentido. (Páginas 1) 
+* _Homonyms_ (Homónimo) é uma palavra que tem a mesma pronuncia ou a mesma grafia que outra, mas possui um significado diferente. (Páginas 1)
+* _Code Reviews_ Uma reunião para certificar que os revisores de códigos entendam os nomes da mesma maneira de quem criou, e fazer as mesmas suposições sobre as entidades. (Páginas 13)
+
+
+## 3. Fichamento de Citações
+* "_The names of variables and functions are a major part of programs’ source code._"
+* "_But the importance of names is not based only on their volume. Their importance stems from the fact that they serve as implicit documentation, conveying to the reader the meaning of the code and the intent of the developer who wrote the code [9], [17]._"
+* "_But natural language is inherently ambiguous, including, for example, synonyms (different words that mean the same thing), polysemy (words with multiple meanings), and homonyms (different words with identical spelling). As a result names chosen by one developer may not convey the expected meaning to another developer [12]._"
+* "_This implies that developers should include naming issues explicitly in code reviews: make sure reviewers understand names the same way, and make the same assumptions about the named entities._"
